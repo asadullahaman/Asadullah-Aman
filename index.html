@@ -121,28 +121,15 @@
       </div>
     </section>
 
-    <!-- ... end of HERO SECTION ... -->
-   
-
     <!-- FULL-WIDTH AUTOPLAY VIDEO SECTION -->
     <section class="full-width-video">
       <div class="video-responsive-wrapper">
-        <!-- 
-          Notice the URL parameters added to the YouTube link:
-          ?autoplay=1 (starts immediately)
-          &mute=1 (bypasses browser blocking)
-          &playsinline=1 (prevents iOS from opening it in fullscreen automatically)
-          &loop=1&playlist=VIDEO_ID (makes it loop infinitely)
-          &controls=0 (hides the player controls for a cleaner look)
-        -->
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/oafxkMv4xnc?si=dszvW3v1tIKyAvQC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <!-- FIXED YOUTUBE URL: Stripped ?si= param and added required autoplay/mute parameters -->
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/oafxkMv4xnc?autoplay=1&mute=1&playsinline=1&loop=1&playlist=oafxkMv4xnc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
       </div>
     </section>
 
-    <!-- ABOUT SECTION ... -->
-    <section class="section" id="about">
-
-    <!-- ABOUT SECTION -->
+    <!-- ABOUT SECTION (Removed duplicate) -->
     <section class="section" id="about">
       <div class="section-container">
         <div class="section-header">
@@ -215,7 +202,6 @@
           
           <!-- Card 1 -->
           <div class="portfolio-card" data-category="social">
-            <!-- CHANGED: reel-container to video-container -->
             <div class="video-container">
               <div class="port-label" style="position: absolute; top: 14px; left: 14px; z-index: 10;">FB REEL</div>
               <iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F3013285538861724%2F&show_text=false&width=560&t=0" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
@@ -228,7 +214,6 @@
 
           <!-- Card 2 -->
           <div class="portfolio-card" data-category="social">
-             <!-- CHANGED: reel-container to video-container -->
             <div class="video-container">
               <div class="port-label" style="position: absolute; top: 14px; left: 14px; z-index: 10;">FB REEL</div>
               <iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F3013285538861724%2F&show_text=false&width=560&t=0" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
