@@ -481,14 +481,14 @@ img { display: block; max-width: 100%; }
 }
 
 /* =========================================
-   FULL-SCREEN NEON GLOW BORDER
+   VIDEO NEON GLOW BORDER
    ========================================= */
-.neon-screen-border {
-  position: fixed;
+.video-neon-overlay {
+  position: absolute; /* Changed from fixed to absolute */
   top: 0; left: 0; right: 0; bottom: 0;
-  z-index: 99999; /* Forces it to the very top of everything */
-  pointer-events: none; /* CRITICAL: Allows clicks to pass through to the site */
-  border: 3px solid #ffde00; /* Yellow border */
+  z-index: 10; /* Ensures it sits directly on top of the video */
+  pointer-events: none; /* Allows user clicks to pass through to the video */
+  border: 3px solid #ffde00;
   box-shadow: 
     inset 0 0 15px rgba(255, 222, 0, 0.7), 
     0 0 15px rgba(255, 222, 0, 0.7);
