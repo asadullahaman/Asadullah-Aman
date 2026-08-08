@@ -8,8 +8,12 @@
 </head>
 <body>
 
-  <!-- Full Background Animation -->
-  <div class="container fixed-bg"></div>
+  <!-- NEW STARFIELD BACKGROUND -->
+  <div class="container fixed-bg">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>
+  </div>
 
   <!-- NAVIGATION -->
   <header class="navbar" id="navbar">
@@ -92,26 +96,29 @@
                 <div class="item" style="--position: 1">
                   <div class="card">
                     <div class="port-label" style="position: absolute; top: 5px; left: 5px; z-index: 10;">FB REEL</div>
-                    <iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F3013285538861724%2F&show_text=false&width=560&t=0" style="border:none;overflow:hidden;width:100%;height:100%; border-radius: 8px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                    <!-- Added loading="lazy" to stop lag -->
+                    <iframe loading="lazy" src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F3013285538861724%2F&show_text=false&width=560&t=0" style="border:none;overflow:hidden;width:100%;height:100%; border-radius: 8px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                   </div>
                 </div>
                 <div class="item" style="--position: 2">
                   <div class="card">
                     <div class="port-label" style="position: absolute; top: 5px; left: 5px; z-index: 10;">COMMERCIAL</div>
-                    <iframe src="https://www.youtube.com/embed/2dNI7ukSaus" style="border:none;overflow:hidden;width:100%;height:100%; border-radius: 8px;" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <!-- Added loading="lazy" to stop lag -->
+                    <iframe loading="lazy" src="https://www.youtube.com/embed/2dNI7ukSaus" style="border:none;overflow:hidden;width:100%;height:100%; border-radius: 8px;" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                   </div>
                 </div>
-                <!-- Duplicated for continuous loop effect -->
                 <div class="item" style="--position: 3">
                   <div class="card">
                     <div class="port-label" style="position: absolute; top: 5px; left: 5px; z-index: 10;">FB REEL</div>
-                    <iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F3013285538861724%2F&show_text=false&width=560&t=0" style="border:none;overflow:hidden;width:100%;height:100%; border-radius: 8px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                    <!-- Added loading="lazy" to stop lag -->
+                    <iframe loading="lazy" src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F3013285538861724%2F&show_text=false&width=560&t=0" style="border:none;overflow:hidden;width:100%;height:100%; border-radius: 8px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                   </div>
                 </div>
                 <div class="item" style="--position: 4">
                   <div class="card">
                     <div class="port-label" style="position: absolute; top: 5px; left: 5px; z-index: 10;">COMMERCIAL</div>
-                    <iframe src="https://www.youtube.com/embed/2dNI7ukSaus" style="border:none;overflow:hidden;width:100%;height:100%; border-radius: 8px;" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <!-- Added loading="lazy" to stop lag -->
+                    <iframe loading="lazy" src="https://www.youtube.com/embed/2dNI7ukSaus" style="border:none;overflow:hidden;width:100%;height:100%; border-radius: 8px;" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                   </div>
                 </div>
               </div>
@@ -124,12 +131,11 @@
     <!-- FULL-WIDTH AUTOPLAY VIDEO SECTION -->
     <section class="full-width-video">
       <div class="video-responsive-wrapper">
-        <!-- FIXED YOUTUBE URL: Stripped ?si= param and added required autoplay/mute parameters -->
         <iframe width="560" height="315" src="https://www.youtube.com/embed/oafxkMv4xnc?autoplay=1&mute=1&playsinline=1&loop=1&playlist=oafxkMv4xnc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
       </div>
     </section>
 
-    <!-- ABOUT SECTION (Removed duplicate) -->
+    <!-- ABOUT SECTION -->
     <section class="section" id="about">
       <div class="section-container">
         <div class="section-header">
@@ -204,7 +210,8 @@
           <div class="portfolio-card" data-category="social">
             <div class="video-container">
               <div class="port-label" style="position: absolute; top: 14px; left: 14px; z-index: 10;">FB REEL</div>
-              <iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F3013285538861724%2F&show_text=false&width=560&t=0" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+              <!-- Added loading="lazy" to stop lag -->
+              <iframe loading="lazy" src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F3013285538861724%2F&show_text=false&width=560&t=0" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
             </div>
             <div class="port-info">
               <h3 class="port-title">Viral Facebook Reel</h3>
@@ -216,7 +223,8 @@
           <div class="portfolio-card" data-category="social">
             <div class="video-container">
               <div class="port-label" style="position: absolute; top: 14px; left: 14px; z-index: 10;">FB REEL</div>
-              <iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F3013285538861724%2F&show_text=false&width=560&t=0" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+              <!-- Added loading="lazy" to stop lag -->
+              <iframe loading="lazy" src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F3013285538861724%2F&show_text=false&width=560&t=0" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
             </div>
             <div class="port-info">
               <h3 class="port-title">Viral Facebook Reel</h3>
@@ -228,7 +236,8 @@
           <div class="portfolio-card" data-category="commercial">
             <div class="video-container">
               <div class="port-label" style="position: absolute; top: 14px; left: 14px; z-index: 10;">COMMERCIAL</div>
-              <iframe src="https://www.youtube.com/embed/2dNI7ukSaus" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              <!-- Added loading="lazy" to stop lag -->
+              <iframe loading="lazy" src="https://www.youtube.com/embed/2dNI7ukSaus" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
             <div class="port-info">
               <h3 class="port-title">Brand Story Campaign</h3>
