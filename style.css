@@ -511,3 +511,56 @@ img { display: block; max-width: 100%; }
     border-color: #ffde00;
   }
 }
+/* =========================================
+   FOOTER & DEVELOPER CREDIT
+   ========================================= */
+.site-footer {
+  text-align: center;
+  padding: 40px 20px 30px;
+  border-top: 1px solid var(--border);
+  background: transparent;
+  position: relative;
+  z-index: 5; /* Keeps it above the starfield */
+}
+
+.footer-container p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.developer-credit {
+  font-size: 13px !important;
+  color: var(--text-dim) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* Adds a small pulsing accent dot */
+.glow-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background-color: var(--blue);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--blue);
+  animation: pulseDot 2s infinite alternate;
+}
+
+.dev-name {
+  color: var(--orange);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: color var(--transition);
+}
+
+.dev-name:hover {
+  color: var(--blue);
+}
+
+@keyframes pulseDot {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  100% { transform: scale(1.2); opacity: 1; }
+}
