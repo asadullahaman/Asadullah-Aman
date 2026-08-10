@@ -115,23 +115,57 @@ img { display: block; max-width: 100%; }
 }
 
 /* ======= NAVBAR ======= */
+/* ======= NAVBAR (Liquid Glass Effect) ======= */
 .navbar {
   position: fixed;
   top: 0; left: 0; right: 0;
   height: var(--nav-h);
   z-index: 1000;
-  background: rgba(11, 13, 18, 0.85);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
+  
+  /* Liquid Glass Base */
+  background: rgba(17, 21, 30, 0.25); /* Highly transparent dark tint */
+  backdrop-filter: blur(18px) saturate(120%); /* Intense blur and color saturation */
+  -webkit-backdrop-filter: blur(18px) saturate(120%); /* Safari support */
+  
+  /* Frosted Glass Edges */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    inset 0px 1px 1px rgba(255, 255, 255, 0.1), /* Top inner highlight */
+    inset 0px -1px 4px rgba(255, 255, 255, 0.03), /* Bottom inner frost */
+    0 8px 32px rgba(0, 0, 0, 0.5); /* Outer drop shadow for depth */
+  
+  overflow: hidden; /* Contains the liquid shine animation inside the bar */
 }
-.nav-container {
-  max-width: 1280px;
-  margin: 0 auto;
+
+/* The Animated Liquid Shine Layer */
+.navbar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 50%;
   height: 100%;
-  padding: 0 24px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
+  
+  /* Creates the soft, diagonal light beam */
+  background: linear-gradient(
+    to right, 
+    rgba(255, 255, 255, 0) 0%, 
+    rgba(255, 255, 255, 0.08) 50%, 
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-30deg);
+  filter: blur(5px);
+  animation: liquidShine 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  z-index: -1; /* Keeps the shine behind your text and buttons */
+}
+
+@keyframes liquidShine {
+  0% { 
+    left: -150%; 
+  }
+  20%, 100% { 
+    left: 200%; /* Sweeps across quickly, then waits before repeating */
+  }
 }
 .nav-logo { display: flex; align-items: center; gap: 12px; }
 .logo-icon {
