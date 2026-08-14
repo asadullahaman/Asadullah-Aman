@@ -31,6 +31,21 @@
       flex: 1;
       margin-bottom: 0;
     }
+    
+    /* NEW: Avatar Upload Input Styling */
+    .avatar-upload-label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+    }
+    input[type="file"].form-input {
+      padding: 10px;
+      color: var(--text-secondary);
+    }
+
+    /* NEW: Comment Card Layout with Avatar */
     .comment-card {
       background: var(--bg-card);
       padding: 24px;
@@ -38,18 +53,35 @@
       border: 1px solid var(--border);
       margin-bottom: 20px;
       transition: transform var(--transition);
+      display: flex; /* Aligns avatar and text side-by-side */
+      gap: 18px;
     }
     .comment-card:hover {
       transform: translateY(-2px);
       border-color: rgba(255, 255, 255, 0.15);
     }
+    
+    /* NEW: Avatar Image Styling */
+    .comment-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--border);
+      background: var(--bg-card2);
+      flex-shrink: 0;
+    }
+    
+    .comment-content {
+      flex: 1; /* Takes up remaining space */
+    }
     .comment-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       border-bottom: 1px solid rgba(255,255,255,0.05);
-      padding-bottom: 12px;
+      padding-bottom: 8px;
     }
     .comment-name {
       font-weight: 700;
@@ -64,11 +96,13 @@
       color: var(--text-secondary);
       font-size: 15px;
       line-height: 1.6;
-      white-space: pre-wrap; /* Preserves line breaks in comments */
+      white-space: pre-wrap;
     }
     
     @media (max-width: 768px) {
       .form-row-flex { flex-direction: column; }
+      .comment-card { flex-direction: column; gap: 12px; }
+      .comment-avatar { width: 40px; height: 40px; }
     }
   </style>
 </head>
@@ -136,6 +170,13 @@
             <input type="email" id="c-email" class="form-input" placeholder="Email Address" required />
           </div>
         </div>
+        
+        <!-- NEW: Image Upload Input -->
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label for="c-avatar" class="avatar-upload-label">Profile Photo (Optional)</label>
+          <input type="file" id="c-avatar" class="form-input" accept="image/png, image/jpeg, image/webp" />
+        </div>
+
         <div class="form-group" style="margin-bottom: 24px;">
           <label for="c-comment" class="form-label" style="display:none;">Comment</label>
           <textarea id="c-comment" class="form-input" placeholder="What's on your mind?" rows="4" required></textarea>
@@ -160,20 +201,17 @@
     </div>
   </footer>
 
-  <!-- Link your exact supabase client file -->
   <script src="../js/supabase-client.js"></script>
   
-  <!-- Custom Logic for the Community Page -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const form = document.getElementById('community-form');
       const submitBtn = document.getElementById('btn-submit-comment');
       const commentsList = document.getElementById('comments-list');
+      const avatarInput = document.getElementById('c-avatar');
 
-      // Function to fetch and display comments
       async function loadComments() {
         try {
-          // Fetch from Supabase using the "community" table, newest first
           const data = await window.supabase.select('community', { order: 'created_at.desc' });
           
           if (!data || data.length === 0) {
@@ -181,20 +219,28 @@
             return;
           }
 
-          commentsList.innerHTML = ''; // Clear loading text
+          commentsList.innerHTML = ''; 
           
           data.forEach(item => {
             const dateObj = new Date(item.created_at);
             const formattedDate = dateObj.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
             
+            // Generate fallback initials avatar if no image was uploaded
+            const safeAvatar = item.avatar_url 
+              ? escapeHTML(item.avatar_url) 
+              : `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name)}&background=29b6f6&color=fff&bold=true`;
+
             const card = document.createElement('div');
             card.className = 'comment-card';
             card.innerHTML = `
-              <div class="comment-header">
-                <span class="comment-name">${escapeHTML(item.name)}</span>
-                <span class="comment-date">${formattedDate}</span>
+              <img src="${safeAvatar}" alt="${escapeHTML(item.name)}" class="comment-avatar" loading="lazy" />
+              <div class="comment-content">
+                <div class="comment-header">
+                  <span class="comment-name">${escapeHTML(item.name)}</span>
+                  <span class="comment-date">${formattedDate}</span>
+                </div>
+                <div class="comment-body">${escapeHTML(item.comment)}</div>
               </div>
-              <div class="comment-body">${escapeHTML(item.comment)}</div>
             `;
             commentsList.appendChild(card);
           });
@@ -204,7 +250,6 @@
         }
       }
 
-      // Function to handle form submission
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
@@ -214,18 +259,29 @@
 
         if (!name || !email || !comment) return;
 
-        // UI Loading State
-        submitBtn.textContent = 'POSTING...';
         submitBtn.disabled = true;
+        let finalAvatarUrl = null;
 
         try {
-          // Send to Supabase using the "community" table
-          await window.supabase.insert('community', { name, email, comment });
+          // If the user selected a photo, upload it to ImgBB first
+          if (avatarInput.files.length > 0) {
+            submitBtn.textContent = 'UPLOADING PHOTO...';
+            finalAvatarUrl = await window.uploadToImgBB(avatarInput.files[0]);
+          }
+
+          submitBtn.textContent = 'POSTING COMMENT...';
+
+          // Send to Supabase including the new avatar_url
+          await window.supabase.insert('community', { 
+            name: name, 
+            email: email, 
+            comment: comment,
+            avatar_url: finalAvatarUrl 
+          });
           
-          // Success State
           form.reset();
           submitBtn.textContent = 'POSTED! ✓';
-          submitBtn.style.background = '#2e7d32'; // Green success color
+          submitBtn.style.background = '#2e7d32'; 
           
           setTimeout(() => {
             submitBtn.textContent = 'POST COMMENT';
@@ -233,13 +289,12 @@
             submitBtn.disabled = false;
           }, 2500);
 
-          // Refresh the comments list instantly
           loadComments(); 
           
         } catch (err) {
           console.error('Error posting comment:', err);
           submitBtn.textContent = 'ERROR POSTING';
-          submitBtn.style.background = '#e53935'; // Red error color
+          submitBtn.style.background = '#e53935'; 
           
           setTimeout(() => {
             submitBtn.textContent = 'POST COMMENT';
@@ -249,14 +304,13 @@
         }
       });
 
-      // Security Helper to prevent Cross-Site Scripting (XSS)
       function escapeHTML(str) {
+        if (!str) return '';
         const div = document.createElement('div');
         div.textContent = str;
         return div.innerHTML;
       }
 
-      // Mobile Menu Toggle Logic (Copied from main script.js)
       const toggleCheckbox = document.getElementById('checkbox2');
       const mobileNav = document.getElementById('mobile-nav');
       if (toggleCheckbox && mobileNav) {
@@ -266,7 +320,6 @@
         });
       }
 
-      // Initialize page
       loadComments();
     });
   </script>
