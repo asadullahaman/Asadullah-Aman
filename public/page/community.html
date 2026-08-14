@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Community — Asadullah Aman</title>
   <link rel="stylesheet" href="../../style.css" />
+  
   <style>
     /* Specific styles for the Community Page */
     .community-section {
@@ -83,7 +84,7 @@
   <!-- NAVBAR -->
   <header class="navbar" id="navbar">
     <div class="nav-container">
-      <a href="index.html" class="nav-logo" id="logo-link">
+      <a href="../../index.html" class="nav-logo" id="logo-link">
         <div class="logo-icon">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
         </div>
@@ -94,8 +95,8 @@
       </a>
       
       <div class="nav-links">
-        <a href="index.html" class="nav-link">Home</a>
-        <a href="index.html#portfolio" class="nav-link">Portfolio</a>
+        <a href="../../index.html" class="nav-link">Home</a>
+        <a href="../../index.html#portfolio" class="nav-link">Portfolio</a>
         <a href="community.html" class="nav-link" style="color: #fff; background: rgba(255,255,255,0.05);">Community</a>
       </div>
 
@@ -110,8 +111,8 @@
 
   <!-- MOBILE MENU -->
   <div class="glass-radio-group" id="mobile-nav">
-    <a href="index.html" class="glass-nav-link">Home</a>
-    <a href="index.html#portfolio" class="glass-nav-link">Portfolio</a>
+    <a href="../../index.html" class="glass-nav-link">Home</a>
+    <a href="../../index.html#portfolio" class="glass-nav-link">Portfolio</a>
     <a href="community.html" class="glass-nav-link">Community</a>
   </div>
 
@@ -154,13 +155,14 @@
     <div class="footer-container">
       <p>&copy; 2026 Asadullah Aman. All rights reserved.</p>
       <p class="developer-credit">
-        Designed & Developed with <span class="glow-dot"></span> by <a href="index.html" class="dev-name">Asadullah Aman</a>
+        Designed & Developed with <span class="glow-dot"></span> by <a href="../../index.html" class="dev-name">Asadullah Aman</a>
       </p>
     </div>
   </footer>
 
   <!-- Link your exact supabase client file -->
   <script src="../js/supabase-client.js"></script>
+  
   <!-- Custom Logic for the Community Page -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -171,8 +173,8 @@
       // Function to fetch and display comments
       async function loadComments() {
         try {
-          // Fetch from Supabase, newest first
-          const data = await window.supabase.select('comments', { order: 'created_at.desc' });
+          // Fetch from Supabase using the "community" table, newest first
+          const data = await window.supabase.select('community', { order: 'created_at.desc' });
           
           if (!data || data.length === 0) {
             commentsList.innerHTML = '<p style="text-align:center; color:var(--text-dim);">No comments yet. Be the first to start the discussion!</p>';
@@ -217,8 +219,8 @@
         submitBtn.disabled = true;
 
         try {
-          // Send to Supabase
-          await window.supabase.insert('comments', { name, email, comment });
+          // Send to Supabase using the "community" table
+          await window.supabase.insert('community', { name, email, comment });
           
           // Success State
           form.reset();
