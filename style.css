@@ -764,3 +764,36 @@ img { display: block; max-width: 100%; }
   50% { opacity: 1; transform: scale(1.2); filter: blur(0); }
   100% { opacity: 1; transform: scale(1); }
 }
+/* =========================================
+   NEON BUTTONS (COMMUNITY & BLOG)
+   ========================================= */
+.btn-neon {
+  font-size: 1rem;
+  padding: 0 1.5rem;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-transform: uppercase;
+  background-color: rgb(14, 14, 26);
+  color: rgb(234, 234, 234);
+  font-weight: 700;
+  transition: 0.6s;
+  box-shadow: 0px 0px 40px rgba(31, 76, 101, 0.4);
+  -webkit-box-reflect: below 5px linear-gradient(to bottom, rgba(0,0,0,0.0), rgba(0,0,0,0.2));
+  text-decoration: none;
+}
+
+.btn-neon:active {
+  scale: 0.92;
+}
+
+.btn-neon:hover {
+  background: rgb(2,29,78);
+  background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(41, 182, 246, 0.873) 60%);
+  color: #fff;
+}
