@@ -1,10 +1,63 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Asadullah Aman — Video Editor & Film Editor</title>
+  
+  <!-- Google Fonts: Rubik Maps -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik+Maps&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* New Button Styles based on your request */
+    .btn-neon {
+      font-size: 1rem;
+      padding: 0 1.5rem;
+      height: 48px; /* Matches the HIRE ME button height */
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      outline: none;
+      border-radius: 8px; /* Matches your theme radius */
+      cursor: pointer;
+      text-transform: uppercase;
+      background-color: rgb(14, 14, 26);
+      color: rgb(234, 234, 234);
+      font-weight: 700;
+      transition: 0.6s;
+      box-shadow: 0px 0px 40px rgba(31, 76, 101, 0.4); /* Softer shadow to fit theme */
+      -webkit-box-reflect: below 5px linear-gradient(to bottom, rgba(0,0,0,0.0), rgba(0,0,0,0.2));
+      text-decoration: none;
+    }
+
+    .btn-neon:active {
+      scale: 0.92;
+    }
+
+    .btn-neon:hover {
+      background: rgb(2,29,78);
+      background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(41, 182, 246, 0.873) 60%); /* Adjusted cyan to match your var(--blue) */
+      color: #fff; /* Changed to white for better readability on dark gradient */
+    }
+
+    /* Apply Rubik Maps Font */
+    .rubik-maps-text {
+      font-family: "Rubik Maps", system-ui;
+      font-weight: 400;
+      font-style: normal;
+    }
+    
+    /* Ensuring icon aligns correctly inside the button */
+    .btn-neon svg {
+       margin-right: 8px;
+       font-size: 1.2rem;
+    }
+  </style>
 </head>
 <body>
 
@@ -65,7 +118,8 @@
       <div class="hero-bg-glow glow-teal"></div>
       <div class="hero-content">
         <div class="hero-text" id="hero-text">
-          <p class="hero-greeting">Hello, I'm</p>
+          <!-- Applied Rubik Maps Font Here -->
+          <p class="hero-greeting rubik-maps-text" style="font-size: 1.5rem; letter-spacing: 2px;">Hi i'm asadullah........</p>
           <h1 class="hero-name">
             <span class="name-first">Asadullah</span>
             <span class="name-last">Aman</span>
@@ -157,9 +211,15 @@
             <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin-top: 20px;">
               <a href="#contact" class="btn-primary" id="btn-hire-me" style="height: 48px; display: flex; align-items: center;">HIRE ME</a>
               
-              <!-- Updated Simple Neon Buttons -->
-              <a href="public/page/community.html" class="btn-neon">Community</a>
-              <a href="#" class="btn-neon">Blog Post</a>
+              <!-- Updated Simple Neon Buttons matching image reference -->
+              <a href="public/page/community.html" class="btn-neon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                Community
+              </a>
+              <a href="#" class="btn-neon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                Blog Post
+              </a>
               
             </div>
           </div>
@@ -386,7 +446,10 @@
     <div class="footer-container">
       <p>&copy; 2026 Asadullah Aman. All rights reserved.</p>
       <p class="developer-credit">
-        Designed & Developed <span class="glow-dot"></span> with <a href="https://github.com/Ibrahimdalxa" class="dev-name">Md Ibrahim</a>
+        Designed & Developed <span class="glow-dot"></span> with 
+        <a href="https://github.com/Ibrahimdalxa" class="dev-name rubik-maps-text" style="font-size: 1.2rem;">
+          Asadullah Aman <b><i>X</i></b> &nbsp; Md Ibrahim
+        </a>
       </p>
     </div>
   </footer>
