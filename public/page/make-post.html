@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Make a Post — Asadullah Aman</title>
+  <link rel="stylesheet" href="../../style.css" />
+  
+  <style>
+    /* Specific styles for the Post Creation Page */
+    .community-section {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 140px 20px 60px;
+      min-height: 100vh;
+    }
+    .comment-form-container {
+      background: var(--bg-card2);
+      padding: 32px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    .form-row-flex {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .form-row-flex .form-group {
+      flex: 1;
+      margin-bottom: 0;
+    }
+    .avatar-upload-label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+    }
+    input[type="file"].form-input {
+      padding: 10px;
+      color: var(--text-secondary);
+    }
+    
+    @media (max-width: 768px) {
+      .form-row-flex { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- STARFIELD BACKGROUND -->
+  <div class="container fixed-bg">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../../index.html" class="nav-logo" id="logo-link">
+        <div class="logo-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-name">Asadullah Aman</span>
+          <span class="logo-subtitle">Video Editor</span>
+        </div>
+      </a>
+      
+      <div class="nav-links">
+        <a href="../../index.html" class="nav-link">Home</a>
+        <a href="../../index.html#portfolio" class="nav-link">Portfolio</a>
+        <a href="community.html" class="nav-link">Community</a>
+      </div>
+
+      <input id="checkbox2" type="checkbox">
+      <label class="toggle toggle2" for="checkbox2">
+        <div id="bar4" class="bars"></div>
+        <div id="bar5" class="bars"></div>
+        <div id="bar6" class="bars"></div>
+      </label>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div class="glass-radio-group" id="mobile-nav">
+    <a href="../../index.html" class="glass-nav-link">Home</a>
+    <a href="../../index.html#portfolio" class="glass-nav-link">Portfolio</a>
+    <a href="community.html" class="glass-nav-link">Community</a>
+  </div>
+
+  <main class="community-section">
+    <div class="section-header">
+      <span class="section-tag">SHARE YOUR THOUGHTS</span>
+      <h2 class="section-title">Make a <span class="accent">Post</span></h2>
+    </div>
+
+    <!-- POST FORM -->
+    <div class="comment-form-container">
+      <form id="community-form">
+        <div class="form-row-flex">
+          <div class="form-group">
+            <label for="c-name" class="form-label" style="display:none;">Name</label>
+            <input type="text" id="c-name" class="form-input" placeholder="Your Name" required />
+          </div>
+          <div class="form-group">
+            <label for="c-email" class="form-label" style="display:none;">Email</label>
+            <input type="email" id="c-email" class="form-input" placeholder="Email Address" required />
+          </div>
+        </div>
+        
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label for="c-avatar" class="avatar-upload-label">Profile Photo (Optional)</label>
+          <input type="file" id="c-avatar" class="form-input" accept="image/png, image/jpeg, image/webp" />
+        </div>
+
+        <div class="form-group" style="margin-bottom: 24px;">
+          <label for="c-comment" class="form-label" style="display:none;">Comment</label>
+          <textarea id="c-comment" class="form-input" placeholder="What's on your mind?" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn-primary btn-full" id="btn-submit-comment">POST COMMENT</button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <p>&copy; 2026 Asadullah Aman. All rights reserved.</p>
+      <p class="developer-credit">
+        Designed & Developed with <span class="glow-dot"></span> by <a href="../../index.html" class="dev-name">Asadullah Aman</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="../js/supabase-client.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('community-form');
+      const submitBtn = document.getElementById('btn-submit-comment');
+      const avatarInput = document.getElementById('c-avatar');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const name = document.getElementById('c-name').value.trim();
+        const email = document.getElementById('c-email').value.trim();
+        const comment = document.getElementById('c-comment').value.trim();
+
+        if (!name || !email || !comment) return;
+
+        submitBtn.disabled = true;
+        let finalAvatarUrl = null;
+
+        try {
+          if (avatarInput.files.length > 0) {
+            submitBtn.textContent = 'UPLOADING PHOTO...';
+            finalAvatarUrl = await window.uploadToImgBB(avatarInput.files[0]);
+          }
+
+          submitBtn.textContent = 'POSTING COMMENT...';
+
+          await window.supabase.insert('community', { 
+            name: name, 
+            email: email, 
+            comment: comment,
+            avatar_url: finalAvatarUrl 
+          });
+          
+          form.reset();
+          submitBtn.textContent = 'POSTED! ✓';
+          submitBtn.style.background = '#2e7d32'; 
+          
+          // Redirect to the community feed after posting
+          setTimeout(() => {
+            window.location.href = "community.html";
+          }, 1500);
+          
+        } catch (err) {
+          console.error('Error posting comment:', err);
+          submitBtn.textContent = 'ERROR POSTING';
+          submitBtn.style.background = '#e53935'; 
+          
+          setTimeout(() => {
+            submitBtn.textContent = 'POST COMMENT';
+            submitBtn.style.background = '';
+            submitBtn.disabled = false;
+          }, 2500);
+        }
+      });
+
+      const toggleCheckbox = document.getElementById('checkbox2');
+      const mobileNav = document.getElementById('mobile-nav');
+      if (toggleCheckbox && mobileNav) {
+        toggleCheckbox.addEventListener('change', (e) => {
+          if (e.target.checked) mobileNav.classList.add('open');
+          else mobileNav.classList.remove('open');
+        });
+      }
+    });
+  </script>
+</body>
+</html>
