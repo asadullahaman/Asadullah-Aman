@@ -182,3 +182,93 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   }
+// ==========================================
+  // DRAGGABLE GLASS CLOCK & DATE LOGIC
+  // ==========================================
+  const clockWidget = document.getElementById('draggable-clock');
+  const timeEl = document.getElementById('clock-time');
+  const dateEl = document.getElementById('clock-date');
+
+  if (clockWidget && timeEl && dateEl) {
+    // 1. Time & Date Updater
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      let minutes = now.getMinutes();
+      
+      // Convert to 12-hour format
+      hours = hours % 12;
+      hours = hours ? hours : 12; // '0' becomes '12'
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      
+      timeEl.textContent = `${hours}:${minutes}`;
+      
+      // Format Date (e.g., "Monday, Aug 24")
+      const options = { weekday: 'long', month: 'short', day: 'numeric' };
+      dateEl.textContent = now.toLocaleDateString('en-US', options);
+    }
+    
+    setInterval(updateClock, 1000);
+    updateClock(); // Initialize immediately
+
+    // 2. Drag & Drop Logic (Supports Mouse & Touch)
+    let isDragging = false;
+    let initialX, initialY;
+
+    function dragStart(e) {
+      if (e.target.closest('.glass-clock-widget')) {
+        isDragging = true;
+        
+        // Get precise click offset within the element
+        const rect = clockWidget.getBoundingClientRect();
+        const clientX = e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type === "touchstart" ? e.touches[0].clientY : e.clientY;
+        
+        initialX = clientX - rect.left;
+        initialY = clientY - rect.top;
+        
+        // Override CSS bottom/right to allow free free dragging via top/left
+        clockWidget.style.bottom = 'auto';
+        clockWidget.style.right = 'auto';
+        clockWidget.style.width = rect.width + 'px'; // Lock width to prevent jumping
+      }
+    }
+
+    function dragEnd() {
+      isDragging = false;
+    }
+
+    function drag(e) {
+      if (isDragging) {
+        e.preventDefault(); // Prevents highlight/scrolling while dragging
+        
+        const clientX = e.type === "touchmove" ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type === "touchmove" ? e.touches[0].clientY : e.clientY;
+
+        // Calculate new X and Y based on cursor position minus initial click offset
+        let newX = clientX - initialX;
+        let newY = clientY - initialY;
+
+        // Keep widget inside screen bounds
+        const maxX = window.innerWidth - clockWidget.offsetWidth;
+        const maxY = window.innerHeight - clockWidget.offsetHeight;
+
+        if (newX < 0) newX = 0;
+        if (newY < 0) newY = 0;
+        if (newX > maxX) newX = maxX;
+        if (newY > maxY) newY = maxY;
+
+        clockWidget.style.left = `${newX}px`;
+        clockWidget.style.top = `${newY}px`;
+      }
+    }
+
+    // Attach Event Listeners
+    clockWidget.addEventListener("mousedown", dragStart);
+    document.addEventListener("mousemove", drag);
+    document.addEventListener("mouseup", dragEnd);
+
+    clockWidget.addEventListener("touchstart", dragStart, { passive: false });
+    document.addEventListener("touchmove", drag, { passive: false });
+    document.addEventListener("touchend", dragEnd);
+  }
