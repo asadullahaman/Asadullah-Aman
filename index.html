@@ -16,20 +16,20 @@
     .btn-neon {
       font-size: 1rem;
       padding: 0 1.5rem;
-      height: 48px; /* Matches the HIRE ME button height */
+      height: 48px; 
       display: inline-flex;
       align-items: center;
       justify-content: center;
       border: none;
       outline: none;
-      border-radius: 8px; /* Matches your theme radius */
+      border-radius: 8px; 
       cursor: pointer;
       text-transform: uppercase;
       background-color: rgb(14, 14, 26);
       color: rgb(234, 234, 234);
       font-weight: 700;
       transition: 0.6s;
-      box-shadow: 0px 0px 40px rgba(31, 76, 101, 0.4); /* Softer shadow to fit theme */
+      box-shadow: 0px 0px 40px rgba(31, 76, 101, 0.4); 
       -webkit-box-reflect: below 5px linear-gradient(to bottom, rgba(0,0,0,0.0), rgba(0,0,0,0.2));
       text-decoration: none;
     }
@@ -40,8 +40,8 @@
 
     .btn-neon:hover {
       background: rgb(2,29,78);
-      background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(41, 182, 246, 0.873) 60%); /* Adjusted cyan to match your var(--blue) */
-      color: #fff; /* Changed to white for better readability on dark gradient */
+      background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(41, 182, 246, 0.873) 60%); 
+      color: #fff; 
     }
 
     /* Apply Rubik Maps Font */
@@ -60,12 +60,8 @@
 </head>
 <body>
 
-  <!-- NEW STARFIELD BACKGROUND -->
-  <div class="container fixed-bg">
-    <div id="stars"></div>
-    <div id="stars2"></div>
-    <div id="stars3"></div>
-  </div>
+  <!-- DYNAMIC IMAGE BACKGROUND -->
+  <div class="custom-bg" id="dynamic-bg"></div>
 
   <!-- NAVIGATION -->
   <header class="navbar" id="navbar">
@@ -113,8 +109,10 @@
   <main>
     <!-- HERO SECTION -->
     <section class="hero" id="home">
-      <div class="hero-bg-glow glow-orange"></div>
-      <div class="hero-bg-glow glow-teal"></div>
+      <!-- Glows disabled to let the photo shine, uncomment if you want them back! -->
+      <!-- <div class="hero-bg-glow glow-orange"></div>
+      <div class="hero-bg-glow glow-teal"></div> -->
+      
       <div class="hero-content">
         <div class="hero-text" id="hero-text">
           <p class="hero-greeting rubik-maps-text" style="font-size: 1.5rem; letter-spacing: 2px;">Hi i'm a creative........</p>
@@ -209,7 +207,6 @@
             <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin-top: 20px;">
               <a href="#contact" class="btn-primary" id="btn-hire-me" style="height: 48px; display: flex; align-items: center;">HIRE ME</a>
               
-              <!-- Updated Simple Neon Buttons matching image reference -->
               <a href="public/page/community.html" class="btn-neon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                 Community
@@ -274,7 +271,6 @@
         
         <div class="portfolio-grid" id="portfolio-grid">
           
-          <!-- Card 1 -->
           <div class="portfolio-card" data-category="fashion">
             <div class="video-container">
               <div class="port-label" style="position: absolute; top: 14px; left: 14px; z-index: 10;">FB REEL</div>
@@ -286,7 +282,6 @@
             </div>
           </div>
 
-          <!-- Card 2 -->
           <div class="portfolio-card" data-category="wedding">
             <div class="video-container">
               <div class="port-label" style="position: absolute; top: 14px; left: 14px; z-index: 10;">FB REEL</div>
@@ -298,7 +293,6 @@
             </div>
           </div>
 
-          <!-- Card 3 -->
           <div class="portfolio-card" data-category="film">
             <div class="video-container">
               <div class="port-label" style="position: absolute; top: 14px; left: 14px; z-index: 10;">COMMERCIAL</div>
@@ -310,7 +304,6 @@
             </div>
           </div>
               
-          <!-- Card 4 -->
           <div class="portfolio-card" data-category="fashion">
             <div class="video-container">
               <div class="port-label" style="position: absolute; top: 14px; left: 14px; z-index: 10;">FB REEL</div>
@@ -322,7 +315,6 @@
             </div>
           </div>
               
-          <!-- Card 5 -->
           <div class="portfolio-card" data-category="fashion">
             <div class="video-container">
               <div class="port-label" style="position: absolute; top: 14px; left: 14px; z-index: 10;">COMMERCIAL</div>
@@ -334,7 +326,6 @@
             </div>
           </div>
               
-          <!-- Card 6 -->
           <div class="portfolio-card" data-category="fashion">
             <div class="video-container">
               <div class="port-label" style="position: absolute; top: 14px; left: 14px; z-index: 10;">COMMERCIAL</div>
@@ -346,7 +337,6 @@
             </div>
           </div>
 
-          <!-- Card 7 -->
           <div class="portfolio-card" data-category="colorgrading">
             <div class="video-container">
               <div class="port-label" style="position: absolute; top: 14px; left: 14px; z-index: 10;">COMMERCIAL</div>
@@ -440,7 +430,6 @@
     </section>
   </main>
 
-  <!-- ======= FOOTER ======= -->
   <footer class="site-footer">
     <div class="footer-container">
       <p>&copy; 2026 Asadullah Aman. All rights reserved.</p>
@@ -454,5 +443,21 @@
   </footer>
 
   <script src="script.js"></script>
+
+  <!-- SCROLL BLUR JAVASCRIPT -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      window.addEventListener('scroll', () => {
+        const bg = document.getElementById('dynamic-bg');
+        if (bg) {
+          if (window.scrollY > 80) {
+            bg.classList.add('scrolled-blur');
+          } else {
+            bg.classList.remove('scrolled-blur');
+          }
+        }
+      });
+    });
+  </script>
 </body>
 </html>
