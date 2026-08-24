@@ -105,8 +105,13 @@
     <a href="#services" class="glass-nav-link">Services</a>
     <a href="#contact" class="glass-nav-link">Contact</a>
   </div>
+  
+  <!-- DRAGGABLE GLASS CLOCK (PiP) -->
+  <div class="glass-clock-widget" id="draggable-clock">
+    <div class="clock-time" id="clock-time">00:00</div>
+    <div class="clock-date" id="clock-date">Loading...</div>
+  </div>
 
-  <main>
   <main>
     <!-- FULL SCREEN IMAGE REVEAL SPACER -->
     <div id="home" style="height: 100vh; width: 100%; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 60px;">
@@ -118,67 +123,6 @@
 
     <!-- HERO SECTION (Pushed down by the spacer) -->
     <section class="hero" style="min-height: auto; padding-top: 40px;">
-      <div class="hero-content">
-        <div class="hero-text" id="hero-text">
-          <p class="hero-greeting rubik-maps-text" style="font-size: 1.5rem; letter-spacing: 2px;">Hi i'm a creative........</p>
-          <h1 class="hero-name rubik-maps-text">
-            <span class="name-first">Asadullah</span>
-            <span class="name-last">Aman</span>
-          </h1>
-          <p class="hero-role">Video Editor <span class="role-divider">|</span> Film Editor</p>
-          <p class="hero-tagline">Visual Creative</p>
-          <p class="hero-description">Crafting cinematic experiences through the art of storytelling, color grading, and motion graphics that captivate audiences.</p>
-          <div class="hero-actions">
-            <a href="#portfolio" class="btn-primary">VIEW SHOWREEL</a>
-            <a href="#portfolio" class="btn-secondary">EXPLORE PORTFOLIO</a>
-          </div>
-        </div>
-        
-        <div class="hero-visual" id="hero-visual">
-          <div class="profile-ring-wrapper">
-            <div class="orbit-dot dot-blue" id="dot-blue"></div>
-            <div class="orbit-dot dot-orange" id="dot-orange"></div>
-            <div class="profile-ring">
-              <div class="profile-glow"></div>
-              <img src="https://i.ibb.co.com/jvzQKH7b/retouch-logo.webp" alt="Asadullah Aman Profile" />
-            </div>
-          </div>
-          
-          <!-- Motion Card Slider (Preview) -->
-          <div class="slider-wrapper">
-            <div class="slider" style="--width: 260px; --height: 146px; --quantity: 4;">
-              <div class="list">
-                <div class="item" style="--position: 1">
-                  <div class="card">
-                    <div class="port-label" style="position: absolute; top: 5px; left: 5px; z-index: 10;">FB REEL</div>
-                    <iframe loading="lazy" src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F3013285538861724%2F&show_text=false&width=560&t=0" style="border:none;overflow:hidden;width:100%;height:100%; border-radius: 8px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-                  </div>
-                </div>
-                <div class="item" style="--position: 2">
-                  <div class="card">
-                    <div class="port-label" style="position: absolute; top: 5px; left: 5px; z-index: 10;">COMMERCIAL</div>
-                    <iframe loading="lazy" src="https://www.youtube.com/embed/2dNI7ukSaus" style="border:none;overflow:hidden;width:100%;height:100%; border-radius: 8px;" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                  </div>
-                </div>
-                <div class="item" style="--position: 3">
-                  <div class="card">
-                    <div class="port-label" style="position: absolute; top: 5px; left: 5px; z-index: 10;">FB REEL</div>
-                    <iframe loading="lazy" src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F3013285538861724%2F&show_text=false&width=560&t=0" style="border:none;overflow:hidden;width:100%;height:100%; border-radius: 8px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-                  </div>
-                </div>
-                <div class="item" style="--position: 4">
-                  <div class="card">
-                    <div class="port-label" style="position: absolute; top: 5px; left: 5px; z-index: 10;">COMMERCIAL</div>
-                    <iframe loading="lazy" src="https://www.youtube.com/embed/2dNI7ukSaus" style="border:none;overflow:hidden;width:100%;height:100%; border-radius: 8px;" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-      
       <div class="hero-content">
         <div class="hero-text" id="hero-text">
           <p class="hero-greeting rubik-maps-text" style="font-size: 1.5rem; letter-spacing: 2px;">Hi i'm a creative........</p>
@@ -513,16 +457,98 @@
   <!-- SCROLL BLUR JAVASCRIPT -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // 1. SCROLL BLUR LOGIC
       window.addEventListener('scroll', () => {
         const bg = document.getElementById('dynamic-bg');
         if (bg) {
-          if (window.scrollY > 80) {
+          // Trigger blur when user scrolls down 40% of the screen height
+          if (window.scrollY > window.innerHeight * 0.4) {
             bg.classList.add('scrolled-blur');
           } else {
             bg.classList.remove('scrolled-blur');
           }
         }
       });
+
+      // 2. DRAGGABLE GLASS CLOCK & DATE LOGIC
+      const clockWidget = document.getElementById('draggable-clock');
+      const timeEl = document.getElementById('clock-time');
+      const dateEl = document.getElementById('clock-date');
+
+      if (clockWidget && timeEl && dateEl) {
+        function updateClock() {
+          const now = new Date();
+          let hours = now.getHours();
+          let minutes = now.getMinutes();
+          
+          hours = hours % 12;
+          hours = hours ? hours : 12; 
+          minutes = minutes < 10 ? '0' + minutes : minutes;
+          
+          timeEl.textContent = `${hours}:${minutes}`;
+          
+          const options = { weekday: 'long', month: 'short', day: 'numeric' };
+          dateEl.textContent = now.toLocaleDateString('en-US', options);
+        }
+        
+        setInterval(updateClock, 1000);
+        updateClock(); 
+
+        let isDragging = false;
+        let initialX, initialY;
+
+        function dragStart(e) {
+          if (e.target.closest('.glass-clock-widget')) {
+            isDragging = true;
+            
+            const rect = clockWidget.getBoundingClientRect();
+            const clientX = e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
+            const clientY = e.type === "touchstart" ? e.touches[0].clientY : e.clientY;
+            
+            initialX = clientX - rect.left;
+            initialY = clientY - rect.top;
+            
+            clockWidget.style.bottom = 'auto';
+            clockWidget.style.right = 'auto';
+            clockWidget.style.width = rect.width + 'px'; 
+          }
+        }
+
+        function dragEnd() {
+          isDragging = false;
+        }
+
+        function drag(e) {
+          if (isDragging) {
+            e.preventDefault(); 
+            
+            const clientX = e.type === "touchmove" ? e.touches[0].clientX : e.clientX;
+            const clientY = e.type === "touchmove" ? e.touches[0].clientY : e.clientY;
+
+            let newX = clientX - initialX;
+            let newY = clientY - initialY;
+
+            const maxX = window.innerWidth - clockWidget.offsetWidth;
+            const maxY = window.innerHeight - clockWidget.offsetHeight;
+
+            if (newX < 0) newX = 0;
+            if (newY < 0) newY = 0;
+            if (newX > maxX) newX = maxX;
+            if (newY > maxY) newY = maxY;
+
+            clockWidget.style.left = `${newX}px`;
+            clockWidget.style.top = `${newY}px`;
+          }
+        }
+
+        clockWidget.addEventListener("mousedown", dragStart);
+        document.addEventListener("mousemove", drag);
+        document.addEventListener("mouseup", dragEnd);
+
+        clockWidget.addEventListener("touchstart", dragStart, { passive: false });
+        document.addEventListener("touchmove", drag, { passive: false });
+        document.addEventListener("touchend", dragEnd);
+      }
     });
   </script>
 </body>
