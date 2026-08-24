@@ -1109,3 +1109,42 @@ img { display: block; max-width: 100%; }
     font-size: 0.75rem;
   }
 }
+
+/* =========================================
+   DYNAMIC IMAGE BACKGROUND (SCROLL TO BLUR)
+   ========================================= */
+.custom-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2; /* Keeps it behind everything */
+  background-image: url('DSC04585 2.jpg'); /* Your image name */
+  background-size: cover;
+  background-position: center;
+  /* Smooth transitions for the blur and scale */
+  transition: filter 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, filter; /* Optimizes performance */
+}
+
+/* Semi-transparent dark overlay to make text pop */
+.custom-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3); /* Light tint at the top */
+  z-index: -1;
+  transition: background 0.6s ease-in-out;
+}
+
+/* Class added automatically when you scroll down */
+.custom-bg.scrolled-blur {
+  filter: blur(18px); /* Heavy, cinematic blur */
+  transform: scale(1.1); /* Scales up slightly so the blurred edges don't pull in white background */
+}
+
+/* Darkens the background when scrolled so your portfolio stands out */
+.custom-bg.scrolled-blur::after {
+  background: rgba(0, 0, 0, 0.75); 
+}
