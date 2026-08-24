@@ -1129,13 +1129,26 @@ img { display: block; max-width: 100%; }
 }
 
 /* Semi-transparent dark overlay to make text pop */
+/* Make the initial image very clear and bright */
 .custom-bg::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.3); /* Light tint at the top */
+  background: rgba(0, 0, 0, 0.1); /* Extremely light tint initially */
   z-index: -1;
-  transition: background 0.6s ease-in-out;
+  transition: background 0.8s ease-in-out;
+}
+
+/* Darkens the background when scrolled so text is readable */
+.custom-bg.scrolled-blur::after {
+  background: rgba(0, 0, 0, 0.80); 
+}
+
+/* Bouncing Scroll Indicator Animation */
+@keyframes bounce-scroll {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
 }
 
 /* Class added automatically when you scroll down */
