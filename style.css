@@ -1205,7 +1205,7 @@ img { display: block; max-width: 100%; }
   width: 100vw;
   height: 100vh;
   z-index: -2; /* Keeps it behind everything */
-  background-image: url('bg.webp'); /* Your image name */
+  background-image: url('https://i.ibb.co.com/8DPDzDN0/bg.webp'); /* Your image name */
   background-size: cover;
   background-position: center;
   /* Smooth transitions for the blur and scale */
