@@ -31,7 +31,7 @@
 @media (max-width: 768px) {
   :root {
     /* Put your Mobile Background Image path here: */
-    --bg-image-current: url('bg-mobile.webp');
+    --bg-image-current: url('https://i.ibb.co.com/8DPDzDN0/bg.webp');
   }
 }
 
