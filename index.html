@@ -4,32 +4,38 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Asadullah Aman — Video Editor & Film Editor</title>
-  
+
+  <!-- Performance: Preload correct background based on device width -->
+  <!-- REPLACE: Desktop background path below -->
+  <link rel="preload" as="image" href="bg-desktop.webp" media="(min-width: 769px)" fetchpriority="high">
+  <!-- REPLACE: Mobile background path below -->
+  <link rel="preload" as="image" href="bg-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
+
   <!-- Google Fonts: Rubik Maps -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rubik+Maps&display=swap" rel="stylesheet">
-  
+
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* New Button Styles based on your request */
+    /* Neon Button Styles */
     .btn-neon {
       font-size: 1rem;
       padding: 0 1.5rem;
-      height: 48px; 
+      height: 48px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       border: none;
       outline: none;
-      border-radius: 8px; 
+      border-radius: 8px;
       cursor: pointer;
       text-transform: uppercase;
       background-color: rgb(14, 14, 26);
       color: rgb(234, 234, 234);
       font-weight: 700;
       transition: 0.6s;
-      box-shadow: 0px 0px 40px rgba(31, 76, 101, 0.4); 
+      box-shadow: 0px 0px 40px rgba(31, 76, 101, 0.4);
       -webkit-box-reflect: below 5px linear-gradient(to bottom, rgba(0,0,0,0.0), rgba(0,0,0,0.2));
       text-decoration: none;
     }
@@ -40,8 +46,8 @@
 
     .btn-neon:hover {
       background: rgb(2,29,78);
-      background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(41, 182, 246, 0.873) 60%); 
-      color: #fff; 
+      background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(41, 182, 246, 0.873) 60%);
+      color: #fff;
     }
 
     /* Apply Rubik Maps Font */
@@ -50,11 +56,11 @@
       font-weight: 400;
       font-style: normal;
     }
-    
+
     /* Ensuring icon aligns correctly inside the button */
     .btn-neon svg {
-       margin-right: 8px;
-       font-size: 1.2rem;
+      margin-right: 8px;
+      font-size: 1.2rem;
     }
   </style>
 </head>
@@ -75,7 +81,7 @@
           <span class="logo-subtitle">Video Editor</span>
         </div>
       </a>
-      
+
       <!-- PC Navigation Links -->
       <div class="nav-links">
         <a href="#home" class="nav-link">Home</a>
@@ -105,7 +111,7 @@
     <a href="#services" class="glass-nav-link">Services</a>
     <a href="#contact" class="glass-nav-link">Contact</a>
   </div>
-  
+
   <!-- DRAGGABLE GLASS CLOCK (PiP) -->
   <div class="glass-clock-widget" id="draggable-clock">
     <div class="clock-time" id="clock-time">00:00</div>
@@ -138,7 +144,7 @@
             <a href="#portfolio" class="btn-secondary">EXPLORE PORTFOLIO</a>
           </div>
         </div>
-        
+
         <div class="hero-visual" id="hero-visual">
           <div class="profile-ring-wrapper">
             <div class="orbit-dot dot-blue" id="dot-blue"></div>
@@ -148,7 +154,7 @@
               <img src="https://i.ibb.co.com/jvzQKH7b/retouch-logo.webp" alt="Asadullah Aman Profile" />
             </div>
           </div>
-          
+
           <!-- Motion Card Slider (Preview) -->
           <div class="slider-wrapper">
             <div class="slider" style="--width: 260px; --height: 146px; --quantity: 4;">
@@ -187,7 +193,7 @@
     <!-- FULL-WIDTH AUTOPLAY VIDEO SECTION -->
     <section class="full-width-video">
       <div class="video-responsive-wrapper">
-        <div class="video-neon-overlay"></div> 
+        <div class="video-neon-overlay"></div>
         <iframe width="560" height="315" src="https://www.youtube.com/embed/l_xa9Hjt-6g?si=8bq8bdF-nOWDZRmy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
     </section>
@@ -213,10 +219,10 @@
           <div class="about-content">
             <h3 class="about-subtitle">Passionate Video Editor &amp; Visual Storyteller</h3>
             <p class="about-text">I'm <strong>Asadullah Aman</strong>, <br>a Video Editor and Film Editor with a passion <br>for crafting compelling visual narratives.<br> I specialize in transforming raw footage<br>into polished cinematic experiences that <br>leave a lasting impact.</p>
-           
+
             <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin-top: 20px;">
               <a href="#contact" class="btn-primary" id="btn-hire-me" style="height: 48px; display: flex; align-items: center;">HIRE ME</a>
-              
+
               <a href="public/page/community.html" class="btn-neon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                 Community
@@ -225,7 +231,6 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                 Blog Post
               </a>
-              
             </div>
           </div>
         </div>
@@ -278,9 +283,8 @@
           <button class="filter-btn" data-filter="fashion">Fashion</button>
           <button class="filter-btn" data-filter="wedding">Wedding</button>
         </div>
-        
+
         <div class="portfolio-grid" id="portfolio-grid">
-          
           <div class="portfolio-card" data-category="fashion">
             <div class="video-container">
               <div class="port-label" style="position: absolute; top: 14px; left: 14px; z-index: 10;">FB REEL</div>
@@ -313,7 +317,7 @@
               <p class="port-desc"></p>
             </div>
           </div>
-              
+
           <div class="portfolio-card" data-category="fashion">
             <div class="video-container">
               <div class="port-label" style="position: absolute; top: 14px; left: 14px; z-index: 10;">FB REEL</div>
@@ -324,7 +328,7 @@
               <p class="port-desc">🌟 “Fashion - frustrations?Nup! Artamus is here to level up your look! Feel the charm, own the moment, shine your way.” </p>
             </div>
           </div>
-              
+
           <div class="portfolio-card" data-category="fashion">
             <div class="video-container">
               <div class="port-label" style="position: absolute; top: 14px; left: 14px; z-index: 10;">COMMERCIAL</div>
@@ -335,7 +339,7 @@
               <p class="port-desc">Fashion isn’t only worn — it is filmed by the way you move. Every outfit becomes a scene. Every person becomes the director of their own style..</p>
             </div>
           </div>
-              
+
           <div class="portfolio-card" data-category="fashion">
             <div class="video-container">
               <div class="port-label" style="position: absolute; top: 14px; left: 14px; z-index: 10;">COMMERCIAL</div>
@@ -357,7 +361,6 @@
               <p class="port-desc"></p>
             </div>
           </div>
-          
         </div>
       </div>
     </section>
@@ -395,7 +398,7 @@
           <h2 class="section-title">Get In <span class="accent">Touch</span></h2>
           <p class="section-description">Have a project in mind? I'd love to hear about it.</p>
         </div>
-        
+
         <div class="contact-grid">
           <div class="contact-info-wrap">
             <div class="contact-info">
@@ -444,7 +447,7 @@
     <div class="footer-container">
       <p>&copy; 2026 Asadullah Aman. All rights reserved.</p>
       <p class="developer-credit">
-        Designed & Developed <span class="glow-dot"></span> with 
+        Designed &amp; Developed <span class="glow-dot"></span> with 
         <a href="https://github.com/Ibrahimdalxa" class="dev-name rubik-maps-text" style="font-size: 1.2rem;">
           Asadullah Aman <b><i>X</i></b> &nbsp; Md Ibrahim
         </a>
@@ -454,7 +457,7 @@
 
   <script src="script.js"></script>
 
-  <!-- SCROLL BLUR JAVASCRIPT -->
+  <!-- SCROLL BLUR JAVASCRIPT & CLOCK -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       // 1. SCROLL BLUR LOGIC
@@ -468,7 +471,7 @@
             bg.classList.remove('scrolled-blur');
           }
         }
-      });
+      }, { passive: true });
 
       // 2. DRAGGABLE GLASS CLOCK & DATE LOGIC
       const clockWidget = document.getElementById('draggable-clock');
@@ -480,17 +483,17 @@
           const now = new Date();
           let hours = now.getHours();
           let minutes = now.getMinutes();
-          
+
           hours = hours % 12;
           hours = hours ? hours : 12; 
           minutes = minutes < 10 ? '0' + minutes : minutes;
-          
+
           timeEl.textContent = `${hours}:${minutes}`;
-          
+
           const options = { weekday: 'long', month: 'short', day: 'numeric' };
           dateEl.textContent = now.toLocaleDateString('en-US', options);
         }
-        
+
         setInterval(updateClock, 1000);
         updateClock(); 
 
@@ -500,14 +503,14 @@
         function dragStart(e) {
           if (e.target.closest('.glass-clock-widget')) {
             isDragging = true;
-            
+
             const rect = clockWidget.getBoundingClientRect();
             const clientX = e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
             const clientY = e.type === "touchstart" ? e.touches[0].clientY : e.clientY;
-            
+
             initialX = clientX - rect.left;
             initialY = clientY - rect.top;
-            
+
             clockWidget.style.bottom = 'auto';
             clockWidget.style.right = 'auto';
             clockWidget.style.width = rect.width + 'px'; 
@@ -521,7 +524,7 @@
         function drag(e) {
           if (isDragging) {
             e.preventDefault(); 
-            
+
             const clientX = e.type === "touchmove" ? e.touches[0].clientX : e.clientX;
             const clientY = e.type === "touchmove" ? e.touches[0].clientY : e.clientY;
 
