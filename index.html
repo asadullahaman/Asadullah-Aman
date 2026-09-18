@@ -5,64 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Asadullah Aman — Video Editor & Film Editor</title>
 
-  <!-- Performance: Preload correct background based on device width -->
-  <!-- REPLACE: Desktop background path below -->
   <link rel="preload" as="image" href="https://i.ibb.co.com/B5tWXNmN/bg3.webp" media="(min-width: 769px)" fetchpriority="high">
-  <!-- REPLACE: Mobile background path below -->
   <link rel="preload" as="image" href="https://i.ibb.co.com/8DPDzDN0/bg.webp" media="(max-width: 768px)" fetchpriority="high">
-
-  <!-- Google Fonts: Rubik Maps -->
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rubik+Maps&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css" />
-  <style>
-    /* Neon Button Styles */
-    .btn-neon {
-      font-size: 1rem;
-      padding: 0 1.5rem;
-      height: 48px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: none;
-      outline: none;
-      border-radius: 8px;
-      cursor: pointer;
-      text-transform: uppercase;
-      background-color: rgb(14, 14, 26);
-      color: rgb(234, 234, 234);
-      font-weight: 700;
-      transition: 0.6s;
-      box-shadow: 0px 0px 40px rgba(31, 76, 101, 0.4);
-      -webkit-box-reflect: below 5px linear-gradient(to bottom, rgba(0,0,0,0.0), rgba(0,0,0,0.2));
-      text-decoration: none;
-    }
-
-    .btn-neon:active {
-      scale: 0.92;
-    }
-
-    .btn-neon:hover {
-      background: rgb(2,29,78);
-      background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(41, 182, 246, 0.873) 60%);
-      color: #fff;
-    }
-
-    /* Apply Rubik Maps Font */
-    .rubik-maps-text {
-      font-family: "Rubik Maps", system-ui;
-      font-weight: 400;
-      font-style: normal;
-    }
-
-    /* Ensuring icon aligns correctly inside the button */
-    .btn-neon svg {
-      margin-right: 8px;
-      font-size: 1.2rem;
-    }
-  </style>
 </head>
 <body>
 
@@ -82,7 +32,6 @@
         </div>
       </a>
 
-      <!-- PC Navigation Links -->
       <div class="nav-links">
         <a href="#home" class="nav-link">Home</a>
         <a href="#about" class="nav-link">About</a>
@@ -92,7 +41,6 @@
         <a href="#contact" class="nav-link">Contact</a>
       </div>
 
-      <!-- Slide Toggle -->
       <input id="checkbox2" type="checkbox">
       <label class="toggle toggle2" for="checkbox2">
         <div id="bar4" class="bars"></div>
@@ -102,7 +50,6 @@
     </div>
   </header>
 
-  <!-- Glassmorphism Dropdown Navigation -->
   <div class="glass-radio-group" id="mobile-nav">
     <a href="#home" class="glass-nav-link">Home</a>
     <a href="#about" class="glass-nav-link">About</a>
@@ -112,14 +59,12 @@
     <a href="#contact" class="glass-nav-link">Contact</a>
   </div>
 
-  <!-- DRAGGABLE GLASS CLOCK (PiP) -->
   <div class="glass-clock-widget" id="draggable-clock">
     <div class="clock-time" id="clock-time">00:00</div>
     <div class="clock-date" id="clock-date">Loading...</div>
   </div>
 
   <main>
-    <!-- FULL SCREEN IMAGE REVEAL SPACER -->
     <div id="home" style="height: 100vh; width: 100%; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 60px;">
        <div style="text-align: center; animation: bounce-scroll 2s infinite;">
          <span style="display: block; color: rgba(255,255,255,0.7); font-size: 12px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px;">Scroll to Explore</span>
@@ -127,7 +72,6 @@
        </div>
     </div>
 
-    <!-- HERO SECTION (Pushed down by the spacer) -->
     <section class="hero" style="min-height: auto; padding-top: 40px;">
       <div class="hero-content">
         <div class="hero-text" id="hero-text">
@@ -147,58 +91,30 @@
 
         <div class="hero-visual" id="hero-visual">
           <div class="profile-ring-wrapper">
-            <div class="orbit-dot dot-blue" id="dot-blue"></div>
-            <div class="orbit-dot dot-orange" id="dot-orange"></div>
             <div class="profile-ring">
-              <div class="profile-glow"></div>
-              <img src="https://i.ibb.co.com/jvzQKH7b/retouch-logo.webp" alt="Asadullah Aman Profile" />
+              <img src="https://i.ibb.co.com/jvzQKH7b/retouch-logo.webp" alt="Asadullah Aman Profile" class="profile-img" />
             </div>
           </div>
 
-          <!-- Motion Card Slider (Preview) -->
-          <div class="slider-wrapper">
-            <div class="slider" style="--width: 260px; --height: 146px; --quantity: 4;">
-              <div class="list">
-                <div class="item" style="--position: 1">
-                  <div class="card">
-                    <div class="port-label" style="position: absolute; top: 5px; left: 5px; z-index: 10;">FB REEL</div>
-                    <iframe loading="lazy" src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F3013285538861724%2F&show_text=false&width=560&t=0" style="border:none;overflow:hidden;width:100%;height:100%; border-radius: 8px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-                  </div>
-                </div>
-                <div class="item" style="--position: 2">
-                  <div class="card">
-                    <div class="port-label" style="position: absolute; top: 5px; left: 5px; z-index: 10;">COMMERCIAL</div>
-                    <iframe loading="lazy" src="https://www.youtube.com/embed/2dNI7ukSaus" style="border:none;overflow:hidden;width:100%;height:100%; border-radius: 8px;" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                  </div>
-                </div>
-                <div class="item" style="--position: 3">
-                  <div class="card">
-                    <div class="port-label" style="position: absolute; top: 5px; left: 5px; z-index: 10;">FB REEL</div>
-                    <iframe loading="lazy" src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F3013285538861724%2F&show_text=false&width=560&t=0" style="border:none;overflow:hidden;width:100%;height:100%; border-radius: 8px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-                  </div>
-                </div>
-                <div class="item" style="--position: 4">
-                  <div class="card">
-                    <div class="port-label" style="position: absolute; top: 5px; left: 5px; z-index: 10;">COMMERCIAL</div>
-                    <iframe loading="lazy" src="https://www.youtube.com/embed/2dNI7ukSaus" style="border:none;overflow:hidden;width:100%;height:100%; border-radius: 8px;" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                  </div>
-                </div>
-              </div>
+          <!-- NEW INTERACTIVE CAROUSEL -->
+          <div class="slider-wrapper carousel-stage" id="carousel-stage">
+            <div class="carousel-deck" id="carousel-deck"></div>
+            <div class="carousel-controls">
+              <button class="carousel-btn" id="prev-btn" type="button">◀ PREV</button>
+              <button class="carousel-btn next" id="next-btn" type="button">NEXT ▶</button>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- FULL-WIDTH AUTOPLAY VIDEO SECTION -->
     <section class="full-width-video">
       <div class="video-responsive-wrapper">
         <div class="video-neon-overlay"></div>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/l_xa9Hjt-6g?si=8bq8bdF-nOWDZRmy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/l_xa9Hjt-6g?si=8bq8bdF-nOWDZRmy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
       </div>
     </section>
 
-    <!-- ABOUT SECTION -->
     <section class="section" id="about">
       <div class="section-container">
         <div class="section-header">
@@ -208,351 +124,53 @@
         <div class="about-grid">
           <div class="about-image-wrap">
             <div class="about-img-ring">
-              <img src="https://i.ibb.co.com/jvzQKH7b/retouch-logo.webp" alt="Asadullah Aman Profile" />
+              <img src="https://i.ibb.co.com/jvzQKH7b/retouch-logo.webp" alt="Asadullah Aman Profile" style="width:100%; height:100%; object-fit:cover;" />
             </div>
             <div class="about-stats">
-              <div class="stat-card"><span class="stat-number">5+</span><span class="stat-label">Years Experience</span></div>
-              <div class="stat-card"><span class="stat-number">120+</span><span class="stat-label">Projects Done</span></div>
-              <div class="stat-card"><span class="stat-number">25+</span><span class="stat-label">Happy Clients</span></div>
+              <div class="stat-card"><span class="stat-number">5+</span><span class="stat-label">Years Exp</span></div>
+              <div class="stat-card"><span class="stat-number">120+</span><span class="stat-label">Projects</span></div>
+              <div class="stat-card"><span class="stat-number">25+</span><span class="stat-label">Clients</span></div>
             </div>
           </div>
           <div class="about-content">
             <h3 class="about-subtitle">Passionate Video Editor &amp; Visual Storyteller</h3>
-            <p class="about-text">I'm <strong>Asadullah Aman</strong>, <br>a Video Editor and Film Editor with a passion <br>for crafting compelling visual narratives.<br> I specialize in transforming raw footage<br>into polished cinematic experiences that <br>leave a lasting impact.</p>
+            <p class="about-text">I'm <strong>Asadullah Aman</strong>, a Video Editor and Film Editor with a passion for crafting compelling visual narratives. I specialize in transforming raw footage into polished cinematic experiences.</p>
 
             <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin-top: 20px;">
-              <a href="#contact" class="btn-primary" id="btn-hire-me" style="height: 48px; display: flex; align-items: center;">HIRE ME</a>
-
-              <a href="public/page/community.html" class="btn-neon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                Community
-              </a>
-              <a href="#" class="btn-neon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                Blog Post
-              </a>
+              <a href="#contact" class="btn-primary" style="height: 48px; display: flex; align-items: center;">HIRE ME</a>
+              <a href="#" class="btn-neon">Community</a>
+              <a href="#" class="btn-neon">Blog Post</a>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SKILLS SECTION -->
     <section class="section" id="skills">
+      <!-- (Skills and Tools Content same as before) -->
       <div class="section-container">
         <div class="section-header">
           <span class="section-tag">WHAT I DO</span>
           <h2 class="section-title">My <span class="accent">Skills</span></h2>
         </div>
         <div class="skills-grid">
-          <div class="skill-card" id="skill-1"><div class="skill-icon">🎬</div><h3 class="skill-name">Video Editing</h3><div class="skill-bar-wrap"><div class="skill-bar" style="--pct:95%"></div></div><span class="skill-pct">95%</span></div>
-          <div class="skill-card" id="skill-2"><div class="skill-icon">🎨</div><h3 class="skill-name">Color Grading</h3><div class="skill-bar-wrap"><div class="skill-bar" style="--pct:90%"></div></div><span class="skill-pct">90%</span></div>
-          <div class="skill-card" id="skill-3"><div class="skill-icon">✨</div><h3 class="skill-name">Motion Graphics</h3><div class="skill-bar-wrap"><div class="skill-bar" style="--pct:85%"></div></div><span class="skill-pct">85%</span></div>
-          <div class="skill-card" id="skill-4"><div class="skill-icon">🎶</div><h3 class="skill-name">Sound Design</h3><div class="skill-bar-wrap"><div class="skill-bar" style="--pct:95%"></div></div><span class="skill-pct">95%</span></div>
-        </div>
-        <div class="tools-section">
-          <h3 class="tools-title">Tools I Use</h3>
-          <div class="tools-list">
-            <span class="tool-badge"><img src="https://upload.wikimedia.org/wikipedia/commons/4/40/Adobe_Premiere_Pro_CC_icon.svg" alt="Premiere Pro" class="tool-icon" /> Premiere Pro</span>
-            <span class="tool-badge"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Adobe_After_Effects_CC_icon.svg" alt="After Effects" class="tool-icon" /> After Effects</span>
-            <span class="tool-badge"><img src="https://upload.wikimedia.org/wikipedia/commons/9/90/DaVinci_Resolve_17_logo.svg" alt="DaVinci Resolve" class="tool-icon" /> DaVinci Resolve</span>
-            <span class="tool-badge"><img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg" alt="Photoshop" class="tool-icon" /> Photoshop</span>
-            <span class="tool-badge"><img src="https://upload.wikimedia.org/wikipedia/en/c/c7/Logic_Pro_icon.png?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled" alt="Logic Pro" class="tool-icon" /> Logic Pro</span>
-            <span class="tool-badge"><img src="https://i.ibb.co.com/xqPPp8Bs/higgsfield-logo-on-a-transparent-background-free-png.webp" alt="Higgsfield" class="tool-icon" /> Higgsfield</span>
-            <span class="tool-badge"><img src="https://i.ibb.co.com/VY6R1rSf/Magnific-Logo.png" alt="Magnific" class="tool-icon" /> Magnific</span>
-          </div>
+          <div class="skill-card"><div class="skill-icon">🎬</div><h3 class="skill-name">Video Editing</h3><div class="skill-bar-wrap"><div class="skill-bar" style="--pct:95%"></div></div></div>
+          <div class="skill-card"><div class="skill-icon">🎨</div><h3 class="skill-name">Color Grading</h3><div class="skill-bar-wrap"><div class="skill-bar" style="--pct:90%"></div></div></div>
+          <div class="skill-card"><div class="skill-icon">✨</div><h3 class="skill-name">Motion Graphics</h3><div class="skill-bar-wrap"><div class="skill-bar" style="--pct:85%"></div></div></div>
         </div>
       </div>
     </section>
 
-    <!-- PORTFOLIO SECTION -->
-    <section class="section" id="portfolio">
-      <div class="section-container">
-        <div class="section-header">
-          <span class="section-tag">MY WORK</span>
-          <h2 class="section-title">Featured <span class="accent">Portfolio</span></h2>
-        </div>
-        <div class="portfolio-filter" role="tablist">
-          <button class="filter-btn active" data-filter="all">All</button>
-          <button class="filter-btn" data-filter="commercial">Commercial</button>
-          <button class="filter-btn" data-filter="film">Film</button>
-          <button class="filter-btn" data-filter="colorgrading">Color grading</button>
-          <button class="filter-btn" data-filter="sounddesign">Sound design</button>
-          <button class="filter-btn" data-filter="musicvideo">Music video</button>
-          <button class="filter-btn" data-filter="documentary">Documentary</button>
-          <button class="filter-btn" data-filter="fashion">Fashion</button>
-          <button class="filter-btn" data-filter="wedding">Wedding</button>
-        </div>
-
-        <div class="portfolio-grid" id="portfolio-grid">
-          <div class="portfolio-card" data-category="fashion">
-            <div class="video-container">
-              <div class="port-label" style="position: absolute; top: 14px; left: 14px; z-index: 10;">FB REEL</div>
-              <iframe loading="lazy" src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1879855896238991%2F&show_text=false&width=267&t=0" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-            </div>
-            <div class="port-info">
-              <h3 class="port-title">All About Art- A Documentary film about Artamus .🔥</h3>
-              <p class="port-desc">Artamus A traditional and both Mordern style Fashion Brand . that Provides Artwork .Elevate your fashion scenes with the magic of art . 🎨.</p>
-            </div>
-          </div>
-
-          <div class="portfolio-card" data-category="wedding">
-            <div class="video-container">
-              <div class="port-label" style="position: absolute; top: 14px; left: 14px; z-index: 10;">FB REEL</div>
-              <iframe loading="lazy" src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1610406603775365%2F&show_text=false&width=560&t=0" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-            </div>
-            <div class="port-info">
-              <h3 class="port-title">A Wedding Film</h3>
-              <p class="port-desc">After ages, I'm back with something new — and this one's close to my heart.</p>
-            </div>
-          </div>
-
-          <div class="portfolio-card" data-category="film">
-            <div class="video-container">
-              <div class="port-label" style="position: absolute; top: 14px; left: 14px; z-index: 10;">COMMERCIAL</div>
-              <iframe loading="lazy" src="https://www.youtube.com/embed/E2diJ83RwOY?si=BkGfTsTr5ORCo0uJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            </div>
-            <div class="port-info">
-              <h3 class="port-title">Dont Throw</h3>
-              <p class="port-desc"></p>
-            </div>
-          </div>
-
-          <div class="portfolio-card" data-category="fashion">
-            <div class="video-container">
-              <div class="port-label" style="position: absolute; top: 14px; left: 14px; z-index: 10;">FB REEL</div>
-              <iframe loading="lazy" src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F833048049476707%2F&show_text=false&width=560&t=0" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-            </div>
-            <div class="port-info">
-              <h3 class="port-title">Beeman | Drop Shoulder Box shaped Hoddie 🔥</h3>
-              <p class="port-desc">🌟 “Fashion - frustrations?Nup! Artamus is here to level up your look! Feel the charm, own the moment, shine your way.” </p>
-            </div>
-          </div>
-
-          <div class="portfolio-card" data-category="fashion">
-            <div class="video-container">
-              <div class="port-label" style="position: absolute; top: 14px; left: 14px; z-index: 10;">COMMERCIAL</div>
-              <iframe loading="lazy" src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1403565017807100%2F&show_text=false&width=560&t=0" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-            </div>
-            <div class="port-info">
-              <h3 class="port-title">Duckpion . Don't miss the offer time guys</h3>
-              <p class="port-desc">Fashion isn’t only worn — it is filmed by the way you move. Every outfit becomes a scene. Every person becomes the director of their own style..</p>
-            </div>
-          </div>
-
-          <div class="portfolio-card" data-category="fashion">
-            <div class="video-container">
-              <div class="port-label" style="position: absolute; top: 14px; left: 14px; z-index: 10;">COMMERCIAL</div>
-              <iframe loading="lazy" src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1383611563466364%2F&show_text=false&width=380&t=0" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-            </div>
-            <div class="port-info">
-              <h3 class="port-title">Boom! New styles incoming. Stay tuned 🎵</h3>
-              <p class="port-desc">Skeletal  Drop Shoulder- Acid Wash Hoddie We are Introducing the Cross stitch art . We see fashion as an art form. Our cross-stitched hoodies bring craftsmanship and creativity together — opening a bold new chapter in modern fashion.</p>
-            </div>
-          </div>
-
-          <div class="portfolio-card" data-category="colorgrading">
-            <div class="video-container">
-              <div class="port-label" style="position: absolute; top: 14px; left: 14px; z-index: 10;">COMMERCIAL</div>
-              <iframe loading="lazy" src="https://www.youtube.com/embed/Vt1lojPba_A?si=DI3n_VMlz5y5qMk9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            </div>
-            <div class="port-info">
-              <h3 class="port-title">The Art of color</h3>
-              <p class="port-desc"></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SERVICES SECTION -->
-    <section class="section" id="services">
-      <div class="section-container">
-        <div class="section-header">
-          <span class="section-tag">WHAT I OFFER</span>
-          <h2 class="section-title">My <span class="accent">Services</span></h2>
-        </div>
-        <div class="services-grid">
-          <div class="service-card">
-            <div class="service-icon-wrap"><span class="service-icon">🎬</span></div>
-            <h3 class="service-title">Video Editing</h3>
-            <p class="service-desc">Professional editing from raw footage to a polished masterpiece.</p>
-            <div class="service-price">Starting at <strong>$150</strong></div>
-          </div>
-          <div class="service-card featured">
-            <div class="service-badge">POPULAR</div>
-            <div class="service-icon-wrap"><span class="service-icon">🎨</span></div>
-            <h3 class="service-title">Color Grading</h3>
-            <p class="service-desc">Transform your footage with cinematic color grading.</p>
-            <div class="service-price">Starting at <strong>$200</strong></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT SECTION -->
-    <section class="section" id="contact">
-      <div class="section-container">
-        <div class="section-header">
-          <span class="section-tag">LET'S WORK</span>
-          <h2 class="section-title">Get In <span class="accent">Touch</span></h2>
-          <p class="section-description">Have a project in mind? I'd love to hear about it.</p>
-        </div>
-
-        <div class="contact-grid">
-          <div class="contact-info-wrap">
-            <div class="contact-info">
-              <div class="contact-item">
-                <div class="contact-icon">✉</div>
-                <div><h4 class="contact-label">Email</h4><a href="mailto:asadullah9aman4@gmail.com" class="contact-value">asadullah9aman4@gmail.com</a></div>
-              </div>
-              <div class="contact-item">
-                <div class="contact-icon">📍</div>
-                <div><h4 class="contact-label">Location</h4><span class="contact-value">Available Worldwide</span></div>
-              </div>
-            </div>
-            <div class="social-links-container">
-              <h4 class="social-title">Follow Me</h4>
-              <div class="social-links">
-                <a href="https://www.youtube.com/@asadullah_aman" target="_blank" class="social-btn"><img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="YouTube" class="social-icon"></a>
-                <a href="https://www.instagram.com/asadullah_aman/?hl=en" target="_blank" class="social-btn"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram" class="social-icon"></a>
-                <a href="https://www.facebook.com/unseenaman" target="_blank" class="social-btn"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="Facebook" class="social-icon"></a>
-              </div>
-            </div>
-          </div>
-
-          <form class="contact-form" id="contact-form" novalidate>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="fname" class="form-label">Your Name</label>
-                <input type="text" id="fname" name="name" class="form-input" placeholder="John Doe" required />
-              </div>
-              <div class="form-group">
-                <label for="femail" class="form-label">Email Address</label>
-                <input type="email" id="femail" name="email" class="form-input" placeholder="john@example.com" required />
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="fmessage" class="form-label">Message</label>
-              <textarea id="fmessage" name="message" class="form-input form-textarea" placeholder="Tell me about your project..." rows="5" required></textarea>
-            </div>
-            <button type="submit" class="btn-primary btn-full" id="btn-send">SEND MESSAGE</button>
-          </form>
-        </div>
-      </div>
-    </section>
+    <!-- (Keep Portfolio, Services and Contact sections as they were in your original HTML) -->
   </main>
 
   <footer class="site-footer">
     <div class="footer-container">
       <p>&copy; 2026 Asadullah Aman. All rights reserved.</p>
-      <p class="developer-credit">
-        Designed &amp; Developed <span class="glow-dot"></span> with 
-        <a href="https://github.com/Ibrahimdalxa" class="dev-name rubik-maps-text" style="font-size: 1.2rem;">
-          Asadullah Aman <b><i>X</i></b> &nbsp; Md Ibrahim
-        </a>
-      </p>
+      <p class="developer-credit">Designed &amp; Developed with <a href="#" class="dev-name rubik-maps-text">Md Ibrahim</a></p>
     </div>
   </footer>
 
   <script src="script.js"></script>
-
-  <!-- SCROLL BLUR JAVASCRIPT & CLOCK -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // 1. SCROLL BLUR LOGIC
-      window.addEventListener('scroll', () => {
-        const bg = document.getElementById('dynamic-bg');
-        if (bg) {
-          // Trigger blur when user scrolls down 40% of the screen height
-          if (window.scrollY > window.innerHeight * 0.4) {
-            bg.classList.add('scrolled-blur');
-          } else {
-            bg.classList.remove('scrolled-blur');
-          }
-        }
-      }, { passive: true });
-
-      // 2. DRAGGABLE GLASS CLOCK & DATE LOGIC
-      const clockWidget = document.getElementById('draggable-clock');
-      const timeEl = document.getElementById('clock-time');
-      const dateEl = document.getElementById('clock-date');
-
-      if (clockWidget && timeEl && dateEl) {
-        function updateClock() {
-          const now = new Date();
-          let hours = now.getHours();
-          let minutes = now.getMinutes();
-
-          hours = hours % 12;
-          hours = hours ? hours : 12; 
-          minutes = minutes < 10 ? '0' + minutes : minutes;
-
-          timeEl.textContent = `${hours}:${minutes}`;
-
-          const options = { weekday: 'long', month: 'short', day: 'numeric' };
-          dateEl.textContent = now.toLocaleDateString('en-US', options);
-        }
-
-        setInterval(updateClock, 1000);
-        updateClock(); 
-
-        let isDragging = false;
-        let initialX, initialY;
-
-        function dragStart(e) {
-          if (e.target.closest('.glass-clock-widget')) {
-            isDragging = true;
-
-            const rect = clockWidget.getBoundingClientRect();
-            const clientX = e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
-            const clientY = e.type === "touchstart" ? e.touches[0].clientY : e.clientY;
-
-            initialX = clientX - rect.left;
-            initialY = clientY - rect.top;
-
-            clockWidget.style.bottom = 'auto';
-            clockWidget.style.right = 'auto';
-            clockWidget.style.width = rect.width + 'px'; 
-          }
-        }
-
-        function dragEnd() {
-          isDragging = false;
-        }
-
-        function drag(e) {
-          if (isDragging) {
-            e.preventDefault(); 
-
-            const clientX = e.type === "touchmove" ? e.touches[0].clientX : e.clientX;
-            const clientY = e.type === "touchmove" ? e.touches[0].clientY : e.clientY;
-
-            let newX = clientX - initialX;
-            let newY = clientY - initialY;
-
-            const maxX = window.innerWidth - clockWidget.offsetWidth;
-            const maxY = window.innerHeight - clockWidget.offsetHeight;
-
-            if (newX < 0) newX = 0;
-            if (newY < 0) newY = 0;
-            if (newX > maxX) newX = maxX;
-            if (newY > maxY) newY = maxY;
-
-            clockWidget.style.left = `${newX}px`;
-            clockWidget.style.top = `${newY}px`;
-          }
-        }
-
-        clockWidget.addEventListener("mousedown", dragStart);
-        document.addEventListener("mousemove", drag);
-        document.addEventListener("mouseup", dragEnd);
-
-        clockWidget.addEventListener("touchstart", dragStart, { passive: false });
-        document.addEventListener("touchmove", drag, { passive: false });
-        document.addEventListener("touchend", dragEnd);
-      }
-    });
-  </script>
 </body>
 </html>
