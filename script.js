@@ -134,16 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 7. ---- Hero Reel Carousel ----
   initReelCarousel();
 
-  // 8. ---- Background Scroll Blur ----
-  const bg = document.getElementById('dynamic-bg');
-  if (bg) {
-    window.addEventListener('scroll', () => {
-      // Trigger blur once the user scrolls down 40% of the screen height
-      bg.classList.toggle('scrolled-blur', window.scrollY > window.innerHeight * 0.4);
-    }, { passive: true });
-  }
-
-  // 9. ---- Draggable Glass Clock ----
+  // 8. ---- Draggable Glass Clock ----
   initDraggableClock();
 
   console.log('Portfolio SPA Ready — Asadullah Aman');
