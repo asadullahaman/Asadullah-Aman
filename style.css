@@ -963,38 +963,60 @@ img { display: block; max-width: 100%; }
   padding: 0 24px 60px;
   position: relative;
   background: transparent;
+  overflow: hidden;
 }
 
 .light-text-animation {
   position: absolute;
-  left: 50%;
+  left: 0;
+  right: 0;
   bottom: 22%;
-  transform: translateX(-50%);
-  width: min(92vw, 1200px);
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   text-align: center;
   pointer-events: none;
   background: transparent;
+  overflow: hidden;
 }
 
 .light-text-word {
   margin: 0;
+  padding: 0;
   font-family: 'Anton', 'Arial Narrow', sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.01em;
   line-height: 0.9;
-  font-size: clamp(2.6rem, 10vw, 8.5rem);
+
+  /* Responsive size keeps the complete name centered */
+  font-size: clamp(2.2rem, 7vw, 6.8rem);
+
   color: transparent;
   -webkit-text-stroke: 1.4px #d7ff3f;
+
   position: relative;
-  display: inline-block;
+  display: block;
+  width: max-content;
+  max-width: 100%;
   white-space: nowrap;
+  text-align: center;
   background: transparent;
+  box-sizing: border-box;
 }
 
 .light-text-sweep {
   position: absolute;
   inset: 0;
+
   -webkit-text-stroke: 1.4px transparent;
+
   background: linear-gradient(
     100deg,
     transparent 30%,
@@ -1002,13 +1024,17 @@ img { display: block; max-width: 100%; }
     #d7ff3f 52%,
     transparent 70%
   );
+
   background-size: 260% 100%;
   background-position: 130% 0;
+
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+
   animation: asadullahTextSweep 4.5s ease-in-out infinite;
-  filter: drop-shadow(0 0 6px rgba(215,255,63,0.53));
+
+  filter: drop-shadow(0 0 6px rgba(215, 255, 63, 0.53));
 }
 
 @keyframes asadullahTextSweep {
@@ -1020,10 +1046,13 @@ img { display: block; max-width: 100%; }
 .light-text-glow {
   position: absolute;
   inset: 0;
+
   -webkit-text-stroke: 1.4px #d7ff3f;
   color: transparent;
+
   filter: blur(7px);
   opacity: 0.55;
+
   animation: asadullahTextFlicker 3.2s ease-in-out infinite;
 }
 
@@ -1043,6 +1072,7 @@ img { display: block; max-width: 100%; }
 .scroll-explore {
   position: relative;
   z-index: 2;
+  width: 100%;
   text-align: center;
   animation: bounce-scroll 2s infinite;
 }
@@ -1063,19 +1093,43 @@ img { display: block; max-width: 100%; }
 
 @media (max-width: 700px) {
   .home-intro {
-    padding-bottom: 42px;
+    padding: 0 16px 42px;
   }
+
   .light-text-animation {
+    left: 0;
+    right: 0;
     bottom: 23%;
-    width: 96vw;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 10px;
+    overflow: hidden;
   }
+
   .light-text-word {
-    font-size: clamp(2.25rem, 12vw, 5rem);
+    font-size: clamp(2rem, 8.2vw, 4.8rem);
+    letter-spacing: 0;
     -webkit-text-stroke-width: 1px;
   }
+
   .light-text-sweep,
   .light-text-glow {
     -webkit-text-stroke-width: 1px;
+  }
+}
+
+@media (max-width: 400px) {
+  .home-intro {
+    padding-bottom: 38px;
+  }
+
+  .light-text-animation {
+    bottom: 24%;
+    padding: 0 6px;
+  }
+
+  .light-text-word {
+    font-size: clamp(1.8rem, 8vw, 3rem);
   }
 }
 
