@@ -36,7 +36,86 @@ body {
 
 a { text-decoration: none; color: inherit; }
 img { display: block; max-width: 100%; }
+/* =========================================
+   REFERENCE CAROUSEL IFRAME
+   ========================================= */
 
+.hero-carousel-iframe {
+  position: absolute;
+
+  left: 50%;
+  top: 11%;
+
+  transform: translateX(-50%);
+
+  width: min(520px, 70vw);
+  height: 210px;
+
+  z-index: 3;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  background: transparent;
+  border: 0;
+
+  pointer-events: auto;
+}
+
+.hero-carousel-iframe iframe {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  border: 0;
+  outline: 0;
+
+  background: transparent;
+}
+
+
+/* Desktop */
+@media (min-width: 1000px) {
+  .hero-carousel-iframe {
+    top: 10%;
+    width: 500px;
+    height: 210px;
+  }
+}
+
+
+/* Tablet */
+@media (max-width: 999px) {
+  .hero-carousel-iframe {
+    top: 9%;
+    width: min(470px, 78vw);
+    height: 200px;
+  }
+}
+
+
+/* Mobile */
+@media (max-width: 700px) {
+  .hero-carousel-iframe {
+    top: 10%;
+    width: min(360px, 92vw);
+    height: 175px;
+  }
+}
+
+
+/* Small Mobile */
+@media (max-width: 400px) {
+  .hero-carousel-iframe {
+    top: 9%;
+    width: 94vw;
+    height: 155px;
+  }
+}
 /* =========================================
    PEACEFUL VILLAGE NIGHT VIEW BACKGROUND
    Optimized for Mobile & PC
