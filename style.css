@@ -1087,3 +1087,36 @@ img { display: block; max-width: 100%; }
     animation: none;
   }
 }
+/* Reel carousel above the name text (home-intro) */
+.home-intro {
+  justify-content: flex-start; /* was flex-end — now carousel sits at top, text stays where it is via its own absolute position */
+}
+
+.home-carousel-stage {
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding-top: clamp(90px, 12vh, 140px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+}
+
+.home-carousel-frame {
+  width: 100%;
+  height: 100%;
+  max-height: 42vh;
+  border: 0;
+  background: transparent;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .home-carousel-frame { max-height: 32vh; }
+}
+
+@media (max-width: 400px) {
+  .home-carousel-frame { max-height: 26vh; }
+}
