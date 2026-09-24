@@ -1,8 +1,5 @@
 /* ============================================
    ASADULLAH AMAN — PORTFOLIO JAVASCRIPT
-   Navbar, mobile menu, filters, smooth scroll,
-   skill bars, contact form, hero reel carousel,
-   background blur, and the draggable clock.
    ============================================ */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -66,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (targetElement) {
         e.preventDefault();
         window.scrollTo({
-          top: targetElement.offsetTop - 80, // Offset for fixed navbar
+          top: targetElement.offsetTop - 80,
           behavior: 'smooth'
         });
       }
@@ -116,7 +113,6 @@ document.addEventListener("DOMContentLoaded", () => {
       sendBtn.textContent = 'SENDING...';
       sendBtn.disabled = true;
 
-      // Simulate sending delay
       setTimeout(() => {
         sendBtn.textContent = 'MESSAGE SENT! ✓';
         sendBtn.style.background = '#2e7d32';
@@ -131,23 +127,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 7. ---- Hero Reel Carousel ----
+  // 7. ---- Hero Reel Carousel Initialization ----
   initReelCarousel();
 
-  // 8. ---- Draggable Glass Clock ----
-  initDraggableClock();
-
-  console.log('Portfolio SPA Ready — Asadullah Aman');
 });
 
 /* ============================================
-   HERO REEL CAROUSEL
-   A finite-depth "card deck" carousel: cards fan out
-   left/right from the active center card, scaling and
-   fading with distance. Supports autoplay, click-to-jump,
-   swipe, and prev/next buttons. Pulls its cards straight
-   from the Portfolio grid so there's one source of truth
-   for every embedded reel on the page.
+   HERO REEL CAROUSEL - Dynamic Native Implementation
+   Pulls iframes dynamically from `#portfolio-grid`
    ============================================ */
 function initReelCarousel() {
   const stage = document.getElementById('reel-carousel');
@@ -156,19 +143,31 @@ function initReelCarousel() {
   const nextBtn = document.getElementById('reel-next');
   if (!stage || !deck) return;
 
+  // Extract dynamically from Portfolio iframes
   const source = Array.from(document.querySelectorAll('#portfolio-grid .portfolio-card'))
-    .map(card => ({
-      label: card.querySelector('.port-label')?.textContent.trim() || 'PORTFOLIO',
-      src: card.querySelector('iframe')?.getAttribute('src') || ''
-    }))
-    .filter(item => item.src);
+    .map(card => {
+      const iframe = card.querySelector('iframe');
+      return {
+        label: card.querySelector('.port-label')?.textContent.trim() || 'PORTFOLIO',
+        src: iframe ? iframe.getAttribute('src') : null
+      };
+    })
+    .filter(item => item.src); // Only keep items that have a valid src
 
   const count = source.length;
-  if (count < 2) return;
+  if (count === 0) {
+    stage.style.display = 'none'; // Hide if no iframes found
+    return;
+  }
+  
+  if (count < 2) {
+      // Just duplicate to have at least 2 for logic
+      source.push(source[0]);
+  }
 
   const DEPTH = 1;      // neighbor cards visible on each side
-  const STEP = 0.85;    // horizontal gap between cards, in card widths
-  const CARD_W = 260;   // matches .reel-item width in style.css
+  const STEP = 0.85;    // horizontal gap multiplier
+  let CARD_W = window.innerWidth > 900 ? 240 : (window.innerWidth > 700 ? 220 : 180);
   const SCALE = [1, 0.72];
   const ALPHA = [1, 0.55];
 
@@ -185,177 +184,98 @@ function initReelCarousel() {
     const el = document.createElement('div');
     el.className = 'reel-item';
     el.innerHTML =
-      '<div class="port-label">' + item.label + '</div>' +
-      '<iframe loading="lazy" src="' + item.src + '" scrolling="no" frameborder="0" ' +
-      'allowfullscreen="true" ' +
-      'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>';
-    el._slot = i;
-    frag.appendChild(el);
-    nodes.push(el);
-  }
-  deck.appendChild(frag);
+      ' + item.label + '
 
-  function place(el, d) {
-    const a = Math.abs(d);
-    const s = a <= DEPTH ? SCALE[a] : SCALE[DEPTH] * 0.8;
-    const o = a <= DEPTH ? ALPHA[a] : 0;
-    el.style.transform = 'translate3d(' + (d * STEP * CARD_W).toFixed(1) + 'px, 0, 0) scale(' + s + ')';
-    el.style.opacity = o;
-    el.style.zIndex = String(50 - a);
-    el.style.visibility = o === 0 ? 'hidden' : 'visible';
-    el.style.pointerEvents = d === 0 ? 'auto' : 'none';
-    el.classList.toggle('is-active', d === 0);
-  }
+' +
+'';
+el._slot = i;
+frag.appendChild(el);
+nodes.push(el);
+}
+deck.appendChild(frag);
 
-  function render() {
-    nodes.forEach(el => {
-      let d = ((el._slot - active) % total + total) % total;
-      if (d > total / 2) d -= total;
-
-      // A card recycling from one end to the other must not fly across.
-      if (el._d !== undefined && Math.abs(d - el._d) > 1) {
-        el.style.transition = 'none';
-        place(el, d);
-        void el.offsetWidth; // commit without animating
-        el.style.transition = '';
-      } else {
-        place(el, d);
-      }
-      el._d = d;
-    });
-  }
-
-  function go(delta) {
-    active = ((active + delta) % total + total) % total;
-    render();
-  }
-
-  let timer = null;
-  let paused = false;
-
-  function tick() { if (!paused && !document.hidden) go(1); }
-  function play() { stop(); timer = setInterval(tick, 2600); }
-  function stop() { if (timer) { clearInterval(timer); timer = null; } }
-
-  stage.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') paused = true; });
-  stage.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') paused = false; });
-
-  if (prevBtn) prevBtn.addEventListener('click', () => { go(-1); play(); });
-  if (nextBtn) nextBtn.addEventListener('click', () => { go(1); play(); });
-
-  deck.addEventListener('click', (e) => {
-    const el = e.target.closest('.reel-item');
-    if (el && el._d) { go(el._d); play(); }
-  });
-
-  let startX = 0, swiping = false;
-  stage.addEventListener('touchstart', (e) => {
-    startX = e.changedTouches[0].clientX;
-    swiping = true;
-    paused = true;
-  }, { passive: true });
-  stage.addEventListener('touchend', (e) => {
-    if (!swiping) return;
-    swiping = false;
-    paused = false;
-    const dx = e.changedTouches[0].clientX - startX;
-    if (Math.abs(dx) > 30) { go(dx < 0 ? 1 : -1); play(); }
-  }, { passive: true });
-
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) stop(); else play();
-  });
-
-  // Initial paint, no animation on load.
-  nodes.forEach(el => {
-    let d0 = ((el._slot - active) % total + total) % total;
-    if (d0 > total / 2) d0 -= total;
-    el.style.transition = 'none';
-    place(el, d0);
-    el._d = d0;
-  });
-  void deck.offsetWidth;
-  nodes.forEach(el => { el.style.transition = ''; });
-
-  play();
+function place(el, d) {
+const a = Math.abs(d);
+const s = a <= DEPTH ? SCALE[a] : SCALE[DEPTH] * 0.8;
+const o = a <= DEPTH ? ALPHA[a] : 0;
+el.style.transform = 'translate3d(' + (d * STEP * CARD_W).toFixed(1) + 'px, 0, 0) scale(' + s + ')';
+el.style.opacity = o;
+el.style.zIndex = String(50 - a);
+el.style.visibility = o === 0 ? 'hidden' : 'visible';
+el.classList.toggle('is-active', d === 0);
 }
 
-/* ============================================
-   DRAGGABLE GLASS CLOCK (PiP widget)
-   ============================================ */
-function initDraggableClock() {
-  const clockWidget = document.getElementById('draggable-clock');
-  const timeEl = document.getElementById('clock-time');
-  const dateEl = document.getElementById('clock-date');
-  if (!clockWidget || !timeEl || !dateEl) return;
-
-  function updateClock() {
-    const now = new Date();
-    let hours = now.getHours();
-    let minutes = now.getMinutes();
-
-    // Convert to 12-hour format
-    hours = hours % 12;
-    hours = hours ? hours : 12; // '0' becomes '12'
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-
-    timeEl.textContent = hours + ':' + minutes;
-
-    const options = { weekday: 'long', month: 'short', day: 'numeric' };
-    dateEl.textContent = now.toLocaleDateString('en-US', options);
+function render() {
+nodes.forEach(el => {
+let d = ((el._slot - active) % total + total) % total;
+if (d > total / 2) d -= total;if (el._d !== undefined && Math.abs(d - el._d) > 1) {
+    el.style.transition = 'none';
+    place(el, d);
+    void el.offsetWidth;
+    el.style.transition = '';
+  } else {
+    place(el, d);
   }
+  el._d = d;
+});
+}
 
-  setInterval(updateClock, 1000);
-  updateClock();
+function go(delta) {
+active = ((active + delta) % total + total) % total;
+render();
+}
 
-  let isDragging = false;
-  let initialX, initialY;
+let timer = null;
+let paused = false;
 
-  function dragStart(e) {
-    if (!e.target.closest('.glass-clock-widget')) return;
-    isDragging = true;
+function tick() { if (!paused && !document.hidden) go(1); }
+function play() { stop(); timer = setInterval(tick, 3000); }
+function stop() { if (timer) { clearInterval(timer); timer = null; } }
 
-    const rect = clockWidget.getBoundingClientRect();
-    const clientX = e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
-    const clientY = e.type === "touchstart" ? e.touches[0].clientY : e.clientY;
+stage.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') paused = true; });
+stage.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') paused = false; });
 
-    initialX = clientX - rect.left;
-    initialY = clientY - rect.top;
+if (prevBtn) prevBtn.addEventListener('click', () => { go(-1); play(); });
+if (nextBtn) nextBtn.addEventListener('click', () => { go(1); play(); });
 
-    // Override CSS bottom/right to allow free dragging via top/left
-    clockWidget.style.bottom = 'auto';
-    clockWidget.style.right = 'auto';
-    clockWidget.style.width = rect.width + 'px'; // Lock width to prevent jumping
-  }
+deck.addEventListener('click', (e) => {
+const el = e.target.closest('.reel-item');
+if (el && el._d && el._d !== 0) { go(el._d); play(); }
+});
 
-  function dragEnd() { isDragging = false; }
+let startX = 0, swiping = false;
+stage.addEventListener('touchstart', (e) => {
+startX = e.changedTouches[0].clientX;
+swiping = true;
+paused = true;
+}, { passive: true });
+stage.addEventListener('touchend', (e) => {
+if (!swiping) return;
+swiping = false;
+paused = false;
+const dx = e.changedTouches[0].clientX - startX;
+if (Math.abs(dx) > 30) { go(dx < 0 ? 1 : -1); play(); }
+}, { passive: true });
 
-  function drag(e) {
-    if (!isDragging) return;
-    e.preventDefault(); // Prevents highlight/scrolling while dragging
+window.addEventListener('resize', () => {
+CARD_W = window.innerWidth > 900 ? 240 : (window.innerWidth > 700 ? 220 : 180);
+render();
+});
 
-    const clientX = e.type === "touchmove" ? e.touches[0].clientX : e.clientX;
-    const clientY = e.type === "touchmove" ? e.touches[0].clientY : e.clientY;
+document.addEventListener('visibilitychange', () => {
+if (document.hidden) stop(); else play();
+});
 
-    let newX = clientX - initialX;
-    let newY = clientY - initialY;
+// Initial setup without animation
+nodes.forEach(el => {
+let d0 = ((el._slot - active) % total + total) % total;
+if (d0 > total / 2) d0 -= total;
+el.style.transition = 'none';
+place(el, d0);
+el._d = d0;
+});
+void deck.offsetWidth;
+nodes.forEach(el => { el.style.transition = ''; });
 
-    // Keep widget inside screen bounds
-    const maxX = window.innerWidth - clockWidget.offsetWidth;
-    const maxY = window.innerHeight - clockWidget.offsetHeight;
-
-    newX = Math.max(0, Math.min(newX, maxX));
-    newY = Math.max(0, Math.min(newY, maxY));
-
-    clockWidget.style.left = newX + 'px';
-    clockWidget.style.top = newY + 'px';
-  }
-
-  clockWidget.addEventListener("mousedown", dragStart);
-  document.addEventListener("mousemove", drag);
-  document.addEventListener("mouseup", dragEnd);
-
-  clockWidget.addEventListener("touchstart", dragStart, { passive: false });
-  document.addEventListener("touchmove", drag, { passive: false });
-  document.addEventListener("touchend", dragEnd);
+play();
 }
