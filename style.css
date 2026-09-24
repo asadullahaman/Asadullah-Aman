@@ -1120,3 +1120,93 @@ img { display: block; max-width: 100%; }
 @media (max-width: 400px) {
   .home-carousel-frame { max-height: 26vh; }
 }
+
+/* =========================================
+HOME INTRO — REFERENCE CAROUSEL
+========================================= */
+
+.home-carousel {
+position: absolute;
+left: 50%;
+top: 7%;
+transform: translateX(-50%);
+
+width: min(720px, 90vw);
+height: min(360px, 38vh);
+
+z-index: 3;
+
+overflow: hidden;
+pointer-events: auto;
+
+background: transparent;
+}
+
+.carousel-iframe {
+display: block;
+
+width: 100%;
+height: 100%;
+
+border: 0;
+outline: 0;
+
+background: transparent;
+
+overflow: hidden;
+}
+
+/* Keep ASADULLAH AMAN below carousel */
+.light-text-animation {
+z-index: 4;
+}
+
+/* Make sure scroll indicator stays above everything */
+.scroll-explore {
+z-index: 5;
+}
+
+/* Desktop */
+@media (min-width: 901px) {
+
+.home-carousel {
+top: 7%;
+width: min(720px, 72vw);
+height: 350px;
+}
+
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+
+.home-carousel {
+top: 8%;
+width: 88vw;
+height: 320px;
+}
+
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+
+.home-carousel {
+top: 9%;
+width: 94vw;
+height: 270px;
+}
+
+}
+
+/* Small mobile */
+@media (max-width: 400px) {
+
+.home-carousel {
+top: 10%;
+width: 96vw;
+height: 235px;
+}
+
+}
+
