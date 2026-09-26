@@ -3,6 +3,90 @@
    ============================================ */
 
 document.addEventListener("DOMContentLoaded", () => {
+
+  // Splash Screen Logic
+  const splash = document.getElementById("splash-screen");
+  const splashType = document.getElementById("splash-type");
+  
+  if (splash) {
+    if (sessionStorage.getItem("splashShown")) {
+      splash.style.display = "none";
+    } else {
+      document.body.style.overflow = "hidden";
+      
+      const textToType = "Practice Creativity with Asadullah";
+      let charIndex = 0;
+      
+      setTimeout(() => {
+        splashType.classList.add("typing-active");
+        
+        const typeInterval = setInterval(() => {
+          if (charIndex < textToType.length) {
+            splashType.textContent += textToType.charAt(charIndex);
+            charIndex++;
+          } else {
+            clearInterval(typeInterval);
+            
+            setTimeout(() => {
+              splash.style.opacity = "0";
+              setTimeout(() => {
+                splash.style.display = "none";
+                document.body.style.overflow = "";
+                sessionStorage.setItem("splashShown", "true");
+              }, 1000);
+            }, 1500);
+          }
+        }, 80);
+      }, 3500);
+    }
+  }
+
+
+  // 0. ---- Load Portfolio Items from LocalStorage ----
+  const defaultItems = [
+    {
+      id: "1",
+      category: "social",
+      iframeSrc: "https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F3013285538861724%2F&show_text=true&width=560&t=0",
+      title: "Viral Facebook Reel",
+      desc: "Engaging short-form content edit for social media."
+    },
+    {
+      id: "2",
+      category: "commercial",
+      iframeSrc: "https://www.youtube.com/embed/2dNI7ukSaus",
+      title: "Brand Story Campaign",
+      desc: "High-impact commercial."
+    }
+  ];
+
+  let portfolioItems = JSON.parse(localStorage.getItem("portfolioItems"));
+  if (!portfolioItems) {
+    portfolioItems = defaultItems;
+    localStorage.setItem("portfolioItems", JSON.stringify(portfolioItems));
+  }
+
+  const grid = document.getElementById("portfolio-grid");
+  if (grid) {
+    grid.innerHTML = ""; // Clear any existing items
+    portfolioItems.forEach(item => {
+      const card = document.createElement("div");
+      card.className = "portfolio-card";
+      card.dataset.category = item.category;
+      
+      card.innerHTML = `
+        <div class="video-container">
+          <iframe src="${item.iframeSrc}" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen="true"></iframe>
+        </div>
+        <div class="port-info">
+          <h3 class="port-title">${item.title}</h3>
+          <p class="port-desc">${item.desc || ""}</p>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
   // 1. ---- Navbar Scroll Effect ----
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
@@ -167,7 +251,7 @@ function initReelCarousel() {
 
   const DEPTH = 1;      // neighbor cards visible on each side
   const STEP = 0.85;    // horizontal gap multiplier
-  let CARD_W = window.innerWidth > 900 ? 240 : (window.innerWidth > 700 ? 220 : 180);
+  let CARD_W = window.innerWidth > 900 ? 384 : (window.innerWidth > 700 ? 320 : (window.innerWidth > 400 ? 288 : 240));
   const SCALE = [1, 0.72];
   const ALPHA = [1, 0.55];
 
@@ -183,11 +267,10 @@ function initReelCarousel() {
     const item = source[i % count];
     const el = document.createElement('div');
     el.className = 'reel-item';
-    el.innerHTML =
-      ' + item.label + '
-
-' +
-'';
+    el.innerHTML = `
+      <iframe src="${item.src}" frameborder="0" allowfullscreen style="width:100%; height:100%; border-radius:12px; pointer-events:none;"></iframe>
+      <div class="glass-overlay" style="position:absolute; inset:0; z-index:5;"></div>
+    `;
 el._slot = i;
 frag.appendChild(el);
 nodes.push(el);
@@ -208,7 +291,8 @@ el.classList.toggle('is-active', d === 0);
 function render() {
 nodes.forEach(el => {
 let d = ((el._slot - active) % total + total) % total;
-if (d > total / 2) d -= total;if (el._d !== undefined && Math.abs(d - el._d) > 1) {
+  if (d > total / 2) d -= total;
+  if (el._d !== undefined && Math.abs(d - el._d) > 1) {
     el.style.transition = 'none';
     place(el, d);
     void el.offsetWidth;
@@ -258,7 +342,7 @@ if (Math.abs(dx) > 30) { go(dx < 0 ? 1 : -1); play(); }
 }, { passive: true });
 
 window.addEventListener('resize', () => {
-CARD_W = window.innerWidth > 900 ? 240 : (window.innerWidth > 700 ? 220 : 180);
+CARD_W = window.innerWidth > 900 ? 384 : (window.innerWidth > 700 ? 320 : (window.innerWidth > 400 ? 288 : 240));
 render();
 });
 
@@ -279,3 +363,4 @@ nodes.forEach(el => { el.style.transition = ''; });
 
 play();
 }
+

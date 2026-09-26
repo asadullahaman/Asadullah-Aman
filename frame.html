@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Manage Frames</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { padding: 40px; background: #0a0a0a; color: #fff; font-family: 'Inter', sans-serif; }
+    h1 { margin-bottom: 20px; color: var(--orange); }
+    .admin-container { max-width: 800px; margin: 0 auto; background: rgba(255,255,255,0.05); padding: 30px; border-radius: 12px; }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; margin-bottom: 8px; font-weight: bold; }
+    input, select, textarea { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #111; color: #fff; }
+    .btn { padding: 12px 24px; background: var(--orange); color: #fff; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+    .frame-list { margin-top: 40px; }
+    .frame-item { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.05); padding: 15px; margin-bottom: 10px; border-radius: 8px; }
+    .frame-item button { background: #e74c3c; padding: 8px 16px; }
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <h1>Manage Frames</h1>
+    <a href="index.html" style="color: #4cc41f; text-decoration: none; margin-bottom: 30px; display: inline-block;">&larr; Back to Portfolio</a>
+    
+    <form id="frameForm">
+      <div class="form-group">
+        <label>Caption (Title)</label>
+        <input type="text" id="frameTitle" required placeholder="e.g. Cinematic Film Reel">
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <select id="frameCategory">
+          <option value="commercial">Commercial</option>
+          <option value="social">Social Media</option>
+          <option value="film">Film</option>
+          <option value="color">Color Grading</option>
+          <option value="sound">Sound Design</option>
+          <option value="music">Music Video</option>
+          <option value="documentary">Documentary</option>
+          <option value="fashion">Fashion</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Iframe src Link</label>
+        <input type="url" id="frameSrc" required placeholder="https://www.youtube.com/embed/...">
+        <small style="color: #aaa; margin-top: 5px; display: block;">Just paste the src URL (not the entire iframe tag). e.g. https://www.youtube.com/embed/xyz</small>
+      </div>
+      <div class="form-group">
+        <label>Description (Optional)</label>
+        <textarea id="frameDesc" rows="3" placeholder="Brief description..."></textarea>
+      </div>
+      <button type="submit" class="btn">Add Frame</button>
+    </form>
+
+    <div class="frame-list" id="frameList">
+      <h2>Existing Frames</h2>
+      <!-- Rendered via JS -->
+    </div>
+  </div>
+
+  <script>
+    const defaultItems = [
+      {
+        id: "1",
+        category: "social",
+        iframeSrc: "https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F3013285538861724%2F&show_text=true&width=560&t=0",
+        title: "Viral Facebook Reel",
+        desc: "Engaging short-form content edit for social media."
+      },
+      {
+        id: "2",
+        category: "commercial",
+        iframeSrc: "https://www.youtube.com/embed/2dNI7ukSaus",
+        title: "Brand Story Campaign",
+        desc: "High-impact commercial."
+      }
+    ];
+
+    let items = JSON.parse(localStorage.getItem('portfolioItems'));
+    if (!items) {
+      items = defaultItems;
+      localStorage.setItem('portfolioItems', JSON.stringify(items));
+    }
+
+    const frameList = document.getElementById('frameList');
+
+    function renderList() {
+      frameList.innerHTML = '<h2>Existing Frames</h2>';
+      items.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'frame-item';
+        div.innerHTML = `
+          <div>
+            <strong>${item.title}</strong> <span style="color:#aaa">(${item.category})</span>
+          </div>
+          <button class="btn" onclick="deleteFrame('${item.id}')">Delete</button>
+        `;
+        frameList.appendChild(div);
+      });
+    }
+
+    document.getElementById('frameForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const newItem = {
+        id: Date.now().toString(),
+        category: document.getElementById('frameCategory').value,
+        iframeSrc: document.getElementById('frameSrc').value,
+        title: document.getElementById('frameTitle').value,
+        desc: document.getElementById('frameDesc').value
+      };
+      items.push(newItem);
+      localStorage.setItem('portfolioItems', JSON.stringify(items));
+      renderList();
+      e.target.reset();
+    });
+
+    window.deleteFrame = (id) => {
+      items = items.filter(i => i.id !== id);
+      localStorage.setItem('portfolioItems', JSON.stringify(items));
+      renderList();
+    };
+
+    renderList();
+  </script>
+</body>
+</html>
