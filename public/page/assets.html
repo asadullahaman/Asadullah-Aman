@@ -4,6 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Creator Assets — Asadullah Aman</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Original+Surfer&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Original+Surfer&display=swap" rel="stylesheet"></noscript>
+
   <link rel="stylesheet" href="../../style.css" />
 </head>
 <body>
@@ -49,10 +55,31 @@
     </div>
   </div>
 
-  <div class="container fixed-bg">
-    <div id="stars"></div>
-    <div id="stars2"></div>
-    <div id="stars3"></div>
+  <!-- Full Background Animation -->
+  <div class="site-bg">
+    <div class="village-scene">
+      <div class="village-moon"></div>
+      <div class="star"></div>
+      <div class="star"></div>
+      <div class="star"></div>
+      <div class="star"></div>
+      <div class="village-ground-back"></div>
+      <div class="village-ground"></div>
+      <div class="village-trees">
+        <div class="v-tree tree-1"></div>
+        <div class="v-tree tree-2"></div>
+        <div class="v-tree tree-3"></div>
+      </div>
+      <div class="village-tree-right"></div>
+      <div class="village-cottage">
+        <div class="cottage-roof"></div>
+        <div class="cottage-chimney"></div>
+        <div class="cottage-smoke"></div>
+        <div class="cottage-window"></div>
+        <div class="cottage-door"></div>
+      </div>
+    </div>
+    <div class="liquid-glass"></div>
   </div>
 
   <header class="navbar" id="navbar">
@@ -68,14 +95,18 @@
       </a>
       
       <div class="nav-links">
-        <a href="../../index.html" class="nav-link">Home</a>
+        <a href="../../index.html#home" class="nav-link">Home</a>
+        <a href="../../index.html#about" class="nav-link">About</a>
+        <a href="../../index.html#skills" class="nav-link">Skills</a>
         <a href="../../index.html#portfolio" class="nav-link">Portfolio</a>
+        <a href="../../index.html#services" class="nav-link">Services</a>
+        <a href="../../index.html#contact" class="nav-link">Contact</a>
         <a href="community.html" class="nav-link">Community</a>
-        <a href="assets.html" class="nav-link" style="color: #fff; background: rgba(255,255,255,0.05);">Assets</a>
+        <a href="assets.html" class="nav-link" style="color: var(--orange); font-weight: 600;">Assets</a>
       </div>
 
       <input id="checkbox2" type="checkbox">
-      <label class="toggle toggle2" for="checkbox2">
+      <label class="toggle2" for="checkbox2">
         <div id="bar4" class="bars"></div>
         <div id="bar5" class="bars"></div>
         <div id="bar6" class="bars"></div>
@@ -84,10 +115,14 @@
   </header>
 
   <div class="glass-radio-group" id="mobile-nav">
-    <a href="../../index.html" class="glass-nav-link">Home</a>
+    <a href="../../index.html#home" class="glass-nav-link">Home</a>
+    <a href="../../index.html#about" class="glass-nav-link">About</a>
+    <a href="../../index.html#skills" class="glass-nav-link">Skills</a>
     <a href="../../index.html#portfolio" class="glass-nav-link">Portfolio</a>
+    <a href="../../index.html#services" class="glass-nav-link">Services</a>
+    <a href="../../index.html#contact" class="glass-nav-link">Contact</a>
     <a href="community.html" class="glass-nav-link">Community</a>
-    <a href="assets.html" class="glass-nav-link">Assets</a>
+    <a href="assets.html" class="glass-nav-link" style="color: var(--orange); font-weight: 600;">Assets</a>
   </div>
 
   <main class="assets-section">
@@ -180,14 +215,12 @@
     </div>
   </main>
 
-  <footer class="site-footer">
-    <div class="footer-container">
-      <p>&copy; 2026 Asadullah Aman. All rights reserved.</p>
-      <p class="developer-credit">
-        Designed & Developed with <span class="glow-dot"></span> by <a href="../../index.html" class="dev-name">Asadullah Aman</a>
-      </p>
-    </div>
+  <!-- FOOTER -->
+  <footer style="width:100%;padding:24px 32px;background:rgba(5,5,5,0.95);border-top:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.4);box-sizing:border-box;">
+    <span>&copy; <span id="footer-year"></span> <strong style="color:rgba(255,255,255,0.7);">Asadullah Aman</strong>. All rights reserved.</span>
+    <span>Built with <a href="https://unfilteredpages.vercel.app/public/pages/sites" target="_blank" rel="noopener noreferrer" style="color:#F57C00;text-decoration:none;font-weight:600;transition:color 0.2s ease;" onmouseover="this.style.color='#FF9A44'" onmouseout="this.style.color='#F57C00'">&#10022; Silky Web</a></span>
   </footer>
+  <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
 
   <script>
     // Handle Loading Screen Fade-out
@@ -205,10 +238,30 @@
     const mobileNav = document.getElementById('mobile-nav');
     if (toggleCheckbox && mobileNav) {
       toggleCheckbox.addEventListener('change', (e) => {
-        if (e.target.checked) mobileNav.classList.add('open');
-        else mobileNav.classList.remove('open');
+        mobileNav.classList.toggle('open', e.target.checked);
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!mobileNav.contains(e.target) && !toggleCheckbox.contains(e.target) && !e.target.closest('label[for="checkbox2"]')) {
+          toggleCheckbox.checked = false;
+          mobileNav.classList.remove('open');
+        }
+      });
+
+      mobileNav.querySelectorAll('.glass-nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          toggleCheckbox.checked = false;
+          mobileNav.classList.remove('open');
+        });
       });
     }
+
+    // Like Button Interaction
+    document.querySelectorAll('.like-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.classList.toggle('liked');
+      });
+    });
   </script>
 </body>
 </html>

@@ -839,3 +839,208 @@ img { display: block; max-width: 100%; }
 
 
 .hanging-btn .fil0 { fill: #181818; }
+
+/* ---- Performance: GPU layer hints ---- */
+.reel-item,
+.portfolio-card,
+.glass-photo-wrap {
+  will-change: transform;
+}
+
+.btn-wrapper {
+  will-change: filter;
+}
+
+.hanging-btn .icon-1,
+.hanging-btn .icon-2,
+.hanging-btn .icon-3 {
+  will-change: transform;
+}
+
+.gradient-layer {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* ---- Reduced motion accessibility + perf ---- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .splash-screen {
+    display: none !important;
+  }
+}
+
+/* ---- Assets Page Styles ---- */
+.assets-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 120px 24px 80px;
+  min-height: 100vh;
+}
+
+.assets-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 40px;
+}
+
+.asset-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+
+.asset-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(245, 124, 0, 0.4);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(245, 124, 0, 0.15);
+}
+
+.asset-preview {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+  background: #020617;
+}
+
+.asset-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.asset-card:hover .asset-preview img {
+  transform: scale(1.05);
+}
+
+.asset-info {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.asset-badge {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--orange);
+  background: var(--orange-dim);
+  border: 1px solid rgba(245, 124, 0, 0.25);
+  margin-bottom: 12px;
+}
+
+.asset-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.asset-desc {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+.asset-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.like-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 8px 14px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.like-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.like-btn .filled {
+  display: none;
+  fill: #ef4444;
+}
+
+.like-btn.liked {
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.4);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.like-btn.liked .empty { display: none; }
+.like-btn.liked .filled { display: inline-block; }
+
+.btn-download {
+  background: linear-gradient(135deg, var(--orange), #ff9800);
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 9px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  box-shadow: 0 4px 14px rgba(245, 124, 0, 0.3);
+}
+
+.btn-download:hover {
+  background: linear-gradient(135deg, #ff9800, #ffa726);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(245, 124, 0, 0.45);
+}
+
+@media (max-width: 992px) {
+  .assets-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .assets-grid {
+    grid-template-columns: 1fr;
+  }
+  .assets-section {
+    padding: 100px 16px 60px;
+  }
+}
+
+

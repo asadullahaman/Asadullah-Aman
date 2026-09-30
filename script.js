@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     if (navbar) navbar.classList.toggle('scrolled', window.scrollY > 40);
-  });
+  }, { passive: true });
 
   // 2. ---- Slide Toggle Mobile Menu ----
   const toggleCheckbox = document.getElementById('checkbox2');
