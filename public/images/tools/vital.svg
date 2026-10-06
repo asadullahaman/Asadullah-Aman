@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <defs>
+    <linearGradient id="g_VT" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4527a0" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#121212" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="10" fill="url(#g_VT)" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+  <text x="50%" y="54%" font-family="'Inter', 'Arial', sans-serif" font-size="16" font-weight="800" fill="#00e5ff" text-anchor="middle" dominant-baseline="middle" letter-spacing="-0.5">VT</text>
+</svg>

@@ -13,23 +13,37 @@
     label { display: block; margin-bottom: 8px; font-weight: bold; }
     input, select, textarea { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #111; color: #fff; }
     .btn { padding: 12px 24px; background: var(--orange); color: #fff; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+    .btn:disabled { opacity: .6; cursor: not-allowed; }
     .frame-list { margin-top: 40px; }
-    .frame-item { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.05); padding: 15px; margin-bottom: 10px; border-radius: 8px; }
-    .frame-item button { background: #e74c3c; padding: 8px 16px; }
+    .frame-list-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+    .frame-item { display: flex; justify-content: space-between; align-items: center; gap: 15px; background: rgba(255,255,255,0.05); padding: 15px; margin-bottom: 10px; border-radius: 8px; }
+    .frame-item .meta { min-width: 0; }
+    .frame-item .src { display: block; color: #888; font-size: 12px; margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 520px; }
+    .frame-item .src a { color: #888; }
+    .frame-item button { background: #e74c3c; padding: 8px 16px; flex-shrink: 0; }
+    .btn-refresh { background: #333; padding: 8px 16px; }
+    .status { margin-top: 15px; padding: 10px 14px; border-radius: 8px; display: none; font-size: 14px; }
+    .status.show { display: block; }
+    .status.ok { background: rgba(46,125,50,.25); color: #8be28f; }
+    .status.err { background: rgba(229,57,53,.2); color: #ff8a80; }
+    .preview { margin-top: 10px; aspect-ratio: 16/9; width: 100%; max-width: 420px; display: none; border-radius: 8px; overflow: hidden; background: #000; }
+    .preview.show { display: block; }
+    .preview iframe { width: 100%; height: 100%; border: 0; }
+    .empty { color: #888; }
   </style>
 </head>
 <body>
   <div class="admin-container">
     <h1>Manage Frames</h1>
     <a href="index.html" style="color: #4cc41f; text-decoration: none; margin-bottom: 30px; display: inline-block;">&larr; Back to Portfolio</a>
-    
+
     <form id="frameForm">
       <div class="form-group">
-        <label>Caption (Title)</label>
+        <label for="frameTitle">Caption (Title)</label>
         <input type="text" id="frameTitle" required placeholder="e.g. Cinematic Film Reel">
       </div>
       <div class="form-group">
-        <label>Category</label>
+        <label for="frameCategory">Category</label>
         <select id="frameCategory">
           <option value="commercial">Commercial</option>
           <option value="social">Social Media</option>
@@ -42,86 +56,166 @@
         </select>
       </div>
       <div class="form-group">
-        <label>Iframe src Link</label>
-        <input type="url" id="frameSrc" required placeholder="https://www.youtube.com/embed/...">
-        <small style="color: #aaa; margin-top: 5px; display: block;">Just paste the src URL (not the entire iframe tag). e.g. https://www.youtube.com/embed/xyz</small>
+        <label for="frameSrc">Iframe src Link</label>
+        <input type="text" id="frameSrc" required placeholder="https://www.youtube.com/embed/...">
+        <small style="color: #aaa; margin-top: 5px; display: block;">Paste the src URL — or the whole &lt;iframe&gt; embed code, the link will be extracted automatically.</small>
+        <div class="preview" id="framePreview"></div>
       </div>
       <div class="form-group">
-        <label>Description (Optional)</label>
+        <label for="frameDesc">Description (Optional)</label>
         <textarea id="frameDesc" rows="3" placeholder="Brief description..."></textarea>
       </div>
-      <button type="submit" class="btn">Add Frame</button>
+      <button type="submit" class="btn" id="addBtn">Add Frame</button>
+      <div class="status" id="status"></div>
     </form>
 
-    <div class="frame-list" id="frameList">
-      <h2>Existing Frames</h2>
-      <!-- Rendered via JS -->
+    <div class="frame-list">
+      <div class="frame-list-header">
+        <h2>Existing Frames</h2>
+        <button type="button" class="btn btn-refresh" id="refreshBtn">↻ Refresh</button>
+      </div>
+      <div id="frameList"><p class="empty">Loading…</p></div>
     </div>
   </div>
 
+  <!-- script.js contains the Supabase client (window.supabase) and helpers:
+       PORTFOLIO_TABLE, escapeHTML, safeIframeSrc. Its page-specific code
+       safely does nothing here because those elements don't exist. -->
+  <script src="script.js"></script>
   <script>
-    const defaultItems = [
-      {
-        id: "1",
-        category: "social",
-        iframeSrc: "https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F3013285538861724%2F&show_text=true&width=560&t=0",
-        title: "Viral Facebook Reel",
-        desc: "Engaging short-form content edit for social media."
-      },
-      {
-        id: "2",
-        category: "commercial",
-        iframeSrc: "https://www.youtube.com/embed/2dNI7ukSaus",
-        title: "Brand Story Campaign",
-        desc: "High-impact commercial."
+    const frameList  = document.getElementById('frameList');
+    const form       = document.getElementById('frameForm');
+    const addBtn     = document.getElementById('addBtn');
+    const srcInput   = document.getElementById('frameSrc');
+    const preview    = document.getElementById('framePreview');
+    const statusBox  = document.getElementById('status');
+
+    function showStatus(msg, type = 'ok') {
+      statusBox.textContent = msg;
+      statusBox.className = `status show ${type}`;
+      clearTimeout(showStatus._t);
+      showStatus._t = setTimeout(() => statusBox.classList.remove('show'), 5000);
+    }
+
+    // Accept either a plain URL or a full <iframe ... src="..."> embed code.
+    function extractSrc(value) {
+      const v = value.trim();
+      const m = v.match(/<iframe[^>]*\ssrc\s*=\s*["']([^"']+)["']/i);
+      const url = m ? m[1].replace(/&amp;/g, '&') : v;
+      return safeIframeSrc(url);
+    }
+
+    // Live preview of the iframe link.
+    srcInput.addEventListener('input', () => {
+      const src = extractSrc(srcInput.value);
+      if (src) {
+        preview.innerHTML = `<iframe src="${escapeHTML(src)}" allowfullscreen loading="lazy"></iframe>`;
+        preview.classList.add('show');
+      } else {
+        preview.innerHTML = '';
+        preview.classList.remove('show');
       }
-    ];
-
-    let items = JSON.parse(localStorage.getItem('portfolioItems'));
-    if (!items) {
-      items = defaultItems;
-      localStorage.setItem('portfolioItems', JSON.stringify(items));
-    }
-
-    const frameList = document.getElementById('frameList');
-
-    function renderList() {
-      frameList.innerHTML = '<h2>Existing Frames</h2>';
-      items.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'frame-item';
-        div.innerHTML = `
-          <div>
-            <strong>${item.title}</strong> <span style="color:#aaa">(${item.category})</span>
-          </div>
-          <button class="btn" onclick="deleteFrame('${item.id}')">Delete</button>
-        `;
-        frameList.appendChild(div);
-      });
-    }
-
-    document.getElementById('frameForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const newItem = {
-        id: Date.now().toString(),
-        category: document.getElementById('frameCategory').value,
-        iframeSrc: document.getElementById('frameSrc').value,
-        title: document.getElementById('frameTitle').value,
-        desc: document.getElementById('frameDesc').value
-      };
-      items.push(newItem);
-      localStorage.setItem('portfolioItems', JSON.stringify(items));
-      renderList();
-      e.target.reset();
     });
 
-    window.deleteFrame = (id) => {
-      items = items.filter(i => i.id !== id);
-      localStorage.setItem('portfolioItems', JSON.stringify(items));
-      renderList();
-    };
+    // ---- READ ----
+    async function loadFrames() {
+      frameList.innerHTML = '<p class="empty">Loading…</p>';
+      try {
+        const rows = await window.supabase.select(PORTFOLIO_TABLE, { order: 'created_at.desc' });
+        renderList(rows);
+      } catch (err) {
+        console.error(err);
+        frameList.innerHTML = '<p class="empty">Could not load frames from Supabase.</p>';
+        showStatus('Load failed: ' + friendlyError(err), 'err');
+      }
+    }
 
-    renderList();
+    function renderList(rows) {
+      if (!rows.length) {
+        frameList.innerHTML = '<p class="empty">No frames yet. Add one above.</p>';
+        return;
+      }
+      frameList.innerHTML = rows.map(row => `
+        <div class="frame-item">
+          <div class="meta">
+            <strong>${escapeHTML(row.title)}</strong>
+            <span style="color:#aaa">(${escapeHTML(row.category)})</span>
+            <span class="src"><a href="${escapeHTML(row.iframe_src)}" target="_blank" rel="noopener">${escapeHTML(row.iframe_src)}</a></span>
+          </div>
+          <button class="btn" data-id="${escapeHTML(row.id)}" data-title="${escapeHTML(row.title)}">Delete</button>
+        </div>
+      `).join('');
+    }
+
+    // ---- CREATE ----
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const iframe_src = extractSrc(srcInput.value);
+      if (!iframe_src) {
+        showStatus('Please enter a valid http(s) iframe link.', 'err');
+        return;
+      }
+
+      const newItem = {
+        title:       document.getElementById('frameTitle').value.trim(),
+        category:    document.getElementById('frameCategory').value,
+        iframe_src,
+        description: document.getElementById('frameDesc').value.trim() || null,
+      };
+
+      addBtn.disabled = true;
+      addBtn.textContent = 'Adding…';
+      try {
+        await window.supabase.insert(PORTFOLIO_TABLE, newItem);
+        form.reset();
+        preview.innerHTML = '';
+        preview.classList.remove('show');
+        showStatus('✓ Frame added. It is now live on the portfolio.');
+        await loadFrames();
+      } catch (err) {
+        console.error(err);
+        showStatus('Add failed: ' + friendlyError(err), 'err');
+      } finally {
+        addBtn.disabled = false;
+        addBtn.textContent = 'Add Frame';
+      }
+    });
+
+    // ---- DELETE ----
+    frameList.addEventListener('click', async (e) => {
+      const btn = e.target.closest('button[data-id]');
+      if (!btn) return;
+      if (!confirm(`Delete "${btn.dataset.title}"?`)) return;
+
+      btn.disabled = true;
+      btn.textContent = 'Deleting…';
+      try {
+        await window.supabase.delete(PORTFOLIO_TABLE, btn.dataset.id);
+        showStatus('✓ Frame deleted.');
+        await loadFrames();
+      } catch (err) {
+        console.error(err);
+        showStatus('Delete failed: ' + friendlyError(err), 'err');
+        btn.disabled = false;
+        btn.textContent = 'Delete';
+      }
+    });
+
+    // Turn Supabase error JSON into a readable message.
+    function friendlyError(err) {
+      try {
+        const j = JSON.parse(err.message);
+        if (j.code === '42501') return 'Permission denied — check the Row Level Security policies on "portfolio_items" in Supabase.';
+        if (j.code === 'PGRST205' || j.code === '42P01') return 'Table "portfolio_items" not found in Supabase.';
+        return j.message || err.message;
+      } catch {
+        return err.message;
+      }
+    }
+
+    document.getElementById('refreshBtn').addEventListener('click', loadFrames);
+    loadFrames();
   </script>
 </body>
 </html>
