@@ -303,11 +303,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 splash.style.display = "none";
                 document.body.style.overflow = "";
                 sessionStorage.setItem("splashShown", "true");
-              }, 1000);
-            }, 1500);
+              }, 250);
+            }, 100);
           }
         }, 80);
-      }, 3500);
+      }, 1800);
     }
   }
 
@@ -594,10 +594,10 @@ function initReelCarousel() {
       <iframe src="${item.src}" frameborder="0" allowfullscreen style="width:100%; height:100%; border-radius:12px; pointer-events:none;"></iframe>
       <div class="glass-overlay" style="position:absolute; inset:0; z-index:5;"></div>
     `;
-el._slot = i;
-frag.appendChild(el);
-nodes.push(el);
-}
+    el._slot = i;
+    frag.appendChild(el);
+    nodes.push(el);
+  }
 deck.appendChild(frag);
 
 function place(el, d) {
@@ -686,4 +686,3 @@ nodes.forEach(el => { el.style.transition = ''; });
 
 play();
 }
-
